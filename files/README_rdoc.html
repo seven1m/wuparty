@@ -31,7 +31,7 @@
         </div>
         <div class='last-update'>
           Last Update:
-          <span class='datetime'>Sun Feb 07 00:55:42 -0600 2010</span>
+          <span class='datetime'>Sun Feb 07 01:01:23 -0600 2010</span>
         </div>
       </div>
       <div id='content'>
@@ -52,7 +52,7 @@
             <h2>Installation</h2>
             <pre>sudo gem install wufoo_party</pre>
             <h2>Usage</h2>
-            <pre>require 'wufoo_party'&#x000A;&#x000A;ACCOUNT = 'accountname'&#x000A;API_KEY = 'AAAA-BBBB-CCCC-DDDD'&#x000A;FORM_ID = 'my-form-id'&#x000A;&#x000A;wufoo = WufooParty(ACCOUNT, API_KEY)&#x000A;# you must use field numbers, shown on the 'API Information' page in Wufoo&#x000A;wufoo.submit(FORM_ID, {&#x000A;  '1' =&gt; 'Tim',&#x000A;  '2' =&gt; 'Morgan'&#x000A;})&#x000A;result = wufoo.query(FORM_ID)&#x000A;pp result['form']['Entries'].last['Pretty']&#x000A;# {&quot;Last&quot;=&gt;&quot;Morgan&quot;,&#x000A;#  &quot;Name&quot;=&gt;&quot;Tim&quot;}</pre>
+            <pre>require 'wufoo_party'&#x000A;&#x000A;ACCOUNT = 'accountname'&#x000A;API_KEY = 'AAAA-BBBB-CCCC-DDDD'&#x000A;FORM_ID = 'my-form-id'&#x000A;&#x000A;wufoo = WufooParty.new(ACCOUNT, API_KEY)&#x000A;# you must use field numbers, shown on the 'API Information' page in Wufoo&#x000A;wufoo.submit(FORM_ID, {&#x000A;  '1' =&gt; 'Tim',&#x000A;  '2' =&gt; 'Morgan'&#x000A;})&#x000A;result = wufoo.query(FORM_ID)&#x000A;pp result['form']['Entries'].last['Pretty']&#x000A;# {&quot;Last&quot;=&gt;&quot;Morgan&quot;,&#x000A;#  &quot;Name&quot;=&gt;&quot;Tim&quot;}</pre>
             <h2>Feedback</h2>
             <p>
             I’d love to hear from you if you have suggestions for improvement, bug
