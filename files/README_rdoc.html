@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang='en'>
+  <head>
+    <title>File: README.rdoc [WufooParty]</title>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
+    <link href='../rdoc-style.css' media='screen' rel='stylesheet' type='text/css'>
+    <script type='text/javascript'>
+      //<![CDATA[
+        function popupCode(url) {
+          window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+        }
+        
+        function toggleCode(id) {
+          var code = document.getElementById(id)
+        
+          code.style.display = code.style.display != 'block' ? 'block' : 'none'
+          return true
+        }
+        
+        // Make codeblocks hidden by default
+        document.writeln('<' + 'style type="text/css">.method .source pre { display: none }<\/style>')
+      //]]>
+    </script>
+  </head>
+  <body class='page'>
+    <div class='file' id='wrapper'>
+      <div class='header'>
+        <div class='name'>README.rdoc</div>
+        <div class='paths'>
+          README.rdoc
+        </div>
+        <div class='last-update'>
+          Last Update:
+          <span class='datetime'>Sun Feb 07 00:55:42 -0600 2010</span>
+        </div>
+      </div>
+      <div id='content'>
+        <div id='text'>
+          <div id='description'>
+            <h1><a href="../classes/WufooParty.html">WufooParty</a></h1>
+            <p>
+            Lightweight wrapper for Wufoo API over HTTP using HTTParty.
+            </p>
+            <h2>About</h2>
+            <p>
+            This is a very simple class that utilizes HTTParty &#8212; a wonderful gem
+            for consuming REST APIs.
+            </p>
+            <p>
+            This lib supports both Wufoo&#8217;s query and submit api version 2.0.
+            </p>
+            <h2>Installation</h2>
+            <pre>sudo gem install wufoo_party</pre>
+            <h2>Usage</h2>
+            <pre>require 'wufoo_party'&#x000A;&#x000A;ACCOUNT = 'accountname'&#x000A;API_KEY = 'AAAA-BBBB-CCCC-DDDD'&#x000A;FORM_ID = 'my-form-id'&#x000A;&#x000A;wufoo = WufooParty(ACCOUNT, API_KEY)&#x000A;# you must use field numbers, shown on the 'API Information' page in Wufoo&#x000A;wufoo.submit(FORM_ID, {&#x000A;  '1' =&gt; 'Tim',&#x000A;  '2' =&gt; 'Morgan'&#x000A;})&#x000A;result = wufoo.query(FORM_ID)&#x000A;pp result['form']['Entries'].last['Pretty']&#x000A;# {&quot;Last&quot;=&gt;&quot;Morgan&quot;,&#x000A;#  &quot;Name&quot;=&gt;&quot;Tim&quot;}</pre>
+            <h2>Feedback</h2>
+            <p>
+            I’d love to hear from you if you have suggestions for improvement, bug
+            fixes, or whatever. Email me at tim@timmorgan.org or fork the project and
+            send a pull request.
+            </p>
+            <p>
+            To run the tests, do this:
+            </p>
+            <pre>WUFOO_ACCOUNT=accountname \&#x000A;WUFOO_API_KEY=AAAA-BBBB-CCCC-DDDD \&#x000A;WUFOO_FORM_ID=my-form-id \&#x000A;ruby -rrubygems test/wufoo_party_test.rb</pre>
+          </div>
+          <div id='section'>
+          </div>
+        </div>
+      </div>
+      <div id='footer-push'></div>
+    </div>
+    <div id='footer'>
+      <a href="http://github.com/mislav/hanna/tree/master"><strong>Hanna</strong> RDoc template</a>
+    </div>
+  </body>
+</html>
