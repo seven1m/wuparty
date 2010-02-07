@@ -21,7 +21,7 @@ This lib supports both Wufoo's query and submit api version 2.0.
     API_KEY = 'AAAA-BBBB-CCCC-DDDD'
     FORM_ID = 'my-form-id'
     
-    wufoo = WufooParty(ACCOUNT, API_KEY)
+    wufoo = WufooParty.new(ACCOUNT, API_KEY)
     # you must use field numbers, shown on the 'API Information' page in Wufoo
     wufoo.submit(FORM_ID, {
       '1' => 'Tim',
