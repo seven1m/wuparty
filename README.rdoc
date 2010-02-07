@@ -1,0 +1,44 @@
+= WufooParty
+
+Lightweight wrapper for Wufoo API over HTTP using HTTParty.
+
+== About
+
+This is a very simple class that utilizes HTTParty -- a wonderful gem for
+consuming REST APIs.
+
+This lib supports both Wufoo's query and submit api version 2.0.
+
+== Installation
+
+    sudo gem install wufoo_party
+
+== Usage
+
+    require 'wufoo_party'
+    
+    ACCOUNT = 'accountname'
+    API_KEY = 'AAAA-BBBB-CCCC-DDDD'
+    FORM_ID = 'my-form-id'
+    
+    wufoo = WufooParty(ACCOUNT, API_KEY)
+    # you must use field numbers, shown on the 'API Information' page in Wufoo
+    wufoo.submit(FORM_ID, {
+      '1' => 'Tim',
+      '2' => 'Morgan'
+    })
+    result = wufoo.query(FORM_ID)
+    pp result['form']['Entries'].last['Pretty']
+    # {"Last"=>"Morgan",
+    #  "Name"=>"Tim"}
+    
+== Feedback
+
+I’d love to hear from you if you have suggestions for improvement, bug fixes, or whatever. Email me at tim@timmorgan.org or fork the project and send a pull request.
+
+To run the tests, do this:
+
+    WUFOO_ACCOUNT=accountname \
+    WUFOO_API_KEY=AAAA-BBBB-CCCC-DDDD \
+    WUFOO_FORM_ID=my-form-id \
+    ruby -rrubygems test/wufoo_party_test.rb
