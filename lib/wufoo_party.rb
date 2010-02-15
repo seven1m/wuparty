@@ -8,6 +8,7 @@ class WufooParty
   SUBMIT_ENDPOINT = 'http://%s.wufoo.com/api/insert/'
   API_VERSION = '2.0'
   
+  # Create a new WufooParty object
   def initialize(account, api_key)
     @account = account
     @api_key = api_key
@@ -36,14 +37,25 @@ class WufooParty
     }.merge(data)
     self.class.post(SUBMIT_ENDPOINT % @account, :body => args)
   end
-
-  # Converts an array of field specs (returned by Wufoo) into a simple hash of <tt>{FIELDNUM => FIELDNAME}</tt>
-  def get_field_numbers(field_data)
+  
+  # Queries a form to get its field details
+  def field_details(form_id)
+    query(form_id)['form']['Fields']
+  end
+  
+  # Queries a form to get its field numbers and names and types
+  def field_numbers_and_names_and_types(form_id)
+    get_field_numbers(field_details(form_id))
+  end
+  
+  # Converts an array of field specs (returned by Wufoo) into a simple hash of <tt>{FIELDNUM => [FIELDNAME, FIELDTYPE]}</tt>
+  def get_field_numbers(field_data, is_sub_fields=false, typeof=nil)
     field_data.inject({}) do |hash, field|
       if field['SubFields']
-        hash.merge!(get_field_numbers(field['SubFields']))
-      else
-        hash[field['ColumnId']] = field['Title']
+        hash.merge!(get_field_numbers(field['SubFields'], :is_sub_fields, field['Typeof']))
+      elsif field['ColumnId'] =~ /^\d+$/
+        title = is_sub_fields && field['ChoicesText'] ? field['ChoicesText'] : field['Title']
+        hash[field['ColumnId']] = [title, field['Typeof'] || typeof]
       end
       hash
     end

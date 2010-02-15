@@ -27,13 +27,13 @@ class WufooPartyTest < Test::Unit::TestCase
   
   def test_get_field_numbers
     assert_equal(
-      {'1' => 'Name', '2' => 'Last', '3' => 'Foo'},
+      {'1' => ['Name', 'shortname'], '2' => ['Last', 'shortname'], '3' => ['Foo', 'date']},
       @wufoo.get_field_numbers([
-        {"Title" => "Name", "SubFields" => [
+        {"Title" => "Name", "Typeof" => "shortname", "SubFields" => [
           {"Title" => "Name", "ColumnId" => "1"},
           {"Title" => "Last", "ColumnId" => "2"}
         ]},
-        {"Title" => "Foo", "ColumnId" => "3"}
+        {"Title" => "Foo", "ColumnId" => "3", "Typeof" => "date"}
       ])
     )
   end
