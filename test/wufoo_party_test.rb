@@ -2,7 +2,12 @@ require File.dirname(__FILE__) + '/../lib/wufoo_party'
 require 'test/unit'
 
 class WufooPartyTest < Test::Unit::TestCase
-  
+
+  # Must create a form called "Test Form" and pass in its id
+  # via the ENV variable WUFOO_FORM_ID.
+  # Give the form standard name and address fields.
+  # Make the name field required.
+
   def setup
     if ENV['WUFOO_ACCOUNT'] and ENV['WUFOO_API_KEY'] and ENV['WUFOO_FORM_ID']
       @wufoo = WufooParty.new(ENV['WUFOO_ACCOUNT'], ENV['WUFOO_API_KEY'])
@@ -12,30 +17,82 @@ class WufooPartyTest < Test::Unit::TestCase
       exit(1)
     end
   end
-  
-  def test_connection
-    assert @wufoo.query(@form_id)['form']
+
+  def test_forms
+    assert @wufoo.forms
   end
-  
-  def test_submission
-    start_count = @wufoo.query(@form_id)['form']['EntryCount'].to_i
-    result = @wufoo.submit(@form_id) # blank submission - only works if no required fields
-    assert_equal 'true', result['wufoo_submit'][0]['success']
-    end_count = @wufoo.query(@form_id)['form']['EntryCount'].to_i
-    assert_equal start_count+1, end_count
+
+  def test_form
+    form = @wufoo.form(@form_id)
+    assert form
+    assert_equal 'Test Form', form['Name']
   end
-  
-  def test_get_field_numbers
-    assert_equal(
-      {'1' => ['Name', 'shortname'], '2' => ['Last', 'shortname'], '3' => ['Foo', 'date']},
-      @wufoo.get_field_numbers([
-        {"Title" => "Name", "Typeof" => "shortname", "SubFields" => [
-          {"Title" => "Name", "ColumnId" => "1"},
-          {"Title" => "Last", "ColumnId" => "2"}
-        ]},
-        {"Title" => "Foo", "ColumnId" => "3", "Typeof" => "date"}
-      ])
-    )
+
+  def test_form_by_hash
+    hash = @wufoo.form(@form_id)['Hash']
+    assert @wufoo.form(hash)
   end
-  
+
+  def test_form_directly
+    form = WufooParty::Form.new(@form_id, :account => ENV['WUFOO_ACCOUNT'], :api_key => ENV['WUFOO_API_KEY'])
+    assert_equal 'Test Form', form['Name']
+  end
+
+  def test_non_existent_form
+    assert_nil @wufoo.form('does-not-exist')
+  end
+
+  def test_reports
+    assert @wufoo.reports
+  end
+
+  def test_users
+    assert @wufoo.users
+  end
+
+  def test_form_fields
+    form = @wufoo.form(@form_id)
+    field_names = form.fields.map { |f| f['Title'] }
+    assert field_names.include?('Name')
+    assert field_names.include?('Address')
+  end
+
+  def test_form_submit
+    form = @wufoo.form(@form_id)
+    result = form.submit('Field1' => 'Tim', 'Field2' => 'Morgan', 'Field3' => '4010 W. New Orleans', 'Field5' => 'Broken Arrow', 'Field6' => 'OK', 'Field7' => '74011')
+    assert_equal 1, result['Success']
+    assert result['EntryId']
+    assert result['EntryLink']
+  end
+
+  def test_form_submit_error
+    form = @wufoo.form(@form_id)
+    # test a form error -- non-existent field
+    result = form.submit('Field1' => 'Tim', 'Field2' => 'Morgan', 'Field100' => 'Foobar')
+    assert_equal 0, result['Success']
+    assert result['ErrorText']
+    assert_equal [], result['FieldErrors']
+    # test a field error -- nothing in a required field
+    result = form.submit('Field2' => 'Morgan')
+    assert_equal 0, result['Success']
+    assert_equal 1, result['FieldErrors'].length
+    error = result['FieldErrors'].first
+    assert_equal 'Field1', error['ID']
+    assert_match /required/i, error['ErrorText']
+  end
+
+  def test_entries
+    form = @wufoo.form(@form_id)
+    form.submit('Field1' => 'Tim', 'Field2' => 'Morgan')
+    assert form.entries.last['Field1'].any?
+  end
+
+  def test_filtering_entries
+    form = @wufoo.form(@form_id)
+    form.submit('Field1' => 'Tim', 'Field2' => 'Morgan')
+    id = form.submit('Field1' => 'Jane', 'Field2' => 'Smith')['EntryId']
+    assert form.entries([['Field2', 'Is_equal_to', 'Morgan']]).any?
+    assert_equal 1, form.entries([['EntryId', 'Is_equal_to', id]]).length
+  end
+
 end

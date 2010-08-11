@@ -3,77 +3,152 @@ require 'httparty'
 class WufooParty
   include HTTParty
   format :json
-  
-  QUERY_ENDPOINT = 'http://%s.wufoo.com/api/query/'
-  SUBMIT_ENDPOINT = 'http://%s.wufoo.com/api/insert/'
-  API_VERSION = '2.0'
-  
+
+  ENDPOINT    = 'http://%s.wufoo.com/api/v3'
+  API_VERSION = '3.0'
+
+  class InitializationError < RuntimeError # :nodoc:
+  end
+
   # Create a new WufooParty object
   def initialize(account, api_key)
     @account = account
     @api_key = api_key
     @field_numbers = {}
   end
-  
-  # Perform a query on a specific form_id.
-  # Returns details about the form, as well as individual form submission details.
-  def query(form_id)
-    args = {
-      'w_api_key' => @api_key,
-      'w_version' => API_VERSION,
-      'w_form'    => form_id
-    }
-    result = self.class.post(QUERY_ENDPOINT % @account, :body => args)
-    add_title_to_fields!(result)
-    result
-  end
-  
-  # Perform a submission to a specific form_id.
-  # Returns status of operation.
-  def submit(form_id, data={})
-    args = {
-      'w_api_key' => @api_key,
-      'w_form'    => form_id
-    }.merge(data)
-    self.class.post(SUBMIT_ENDPOINT % @account, :body => args)
-  end
-  
-  # Queries a form to get its field details
-  def field_details(form_id)
-    query(form_id)['form']['Fields']
-  end
-  
-  # Queries a form to get its field numbers and names and types
-  def field_numbers_and_names_and_types(form_id)
-    get_field_numbers(field_details(form_id))
-  end
-  
-  # Converts an array of field specs (returned by Wufoo) into a simple hash of <tt>{FIELDNUM => [FIELDNAME, FIELDTYPE]}</tt>
-  def get_field_numbers(field_data, is_sub_fields=false, typeof=nil)
-    field_data.inject({}) do |hash, field|
-      if field['SubFields']
-        hash.merge!(get_field_numbers(field['SubFields'], :is_sub_fields, field['Typeof']))
-      elsif field['ColumnId'] =~ /^\d+$/
-        title = is_sub_fields && field['ChoicesText'] ? field['ChoicesText'] : field['Title']
-        hash[field['ColumnId']] = [title, field['Typeof'] || typeof]
-      end
-      hash
+
+  # Returns list of forms and details accessible by the user account.
+  def forms
+    get(:forms)['Forms'].map do |details|
+      Form.new(details['Url'], :party => self, :details => details)
     end
   end
-  
-  # Given the result of a query, adds a 'Pretty' key to each form entry
-  # that includes the field titles.
-  def add_title_to_fields!(query_result)
-    if query_result['form'] and query_result['form']['Entries']
-      nums = get_field_numbers(query_result['form']['Fields'])
-      query_result['form']['Entries'].each do |entry|
-        entry['Pretty'] = {}
-        entry.keys.each do |key|
-          if key =~ /^Field(\d+)$/ and title = nums[$1]
-            entry['Pretty'][title] = entry[key]
-          end
+
+  # Returns list of reports and details accessible by the user account.
+  def reports
+    get(:reports)['Reports'].map do |details|
+      Report.new(details['Url'], :party => self, :details => details)
+    end
+  end
+
+  # Returns list of users and details.
+  def users
+    get(:users)['Users'].map do |details|
+      User.new(details['Url'], :party => self, :details => details)
+    end
+  end
+
+  # Returns details about the specified form.
+  def form(form_id)
+    if f = get("forms/#{form_id}")['Forms']
+      Form.new(f.first['Url'], :party => self, :details => f.first)
+    end
+  end
+
+  # Returns details about the specified report.
+  def report(report_id)
+    if r = get("reports/#{report_id}")['Reports']
+      Form.new(r.first['Url'], :party => self, :details => r.first)
+    end
+  end
+
+  def get(method, options={}) # :nodoc:
+    options.merge!(:basic_auth => {:username => @api_key})
+    url = "#{base_url}/#{method}.json"
+    self.class.get(url, options)
+  end
+
+  def post(method, options={}) # :nodoc:
+    options.merge!(:basic_auth => {:username => @api_key})
+    url = "#{base_url}/#{method}.json"
+    self.class.post(url, options)
+  end
+
+  private
+
+    def base_url
+      ENDPOINT % @account
+    end
+
+  public
+
+  # ----------
+
+  class Entity # :nodoc:
+    include HTTParty
+    format :json
+
+    def initialize(id, options)
+      @id = id
+      if options[:party]
+        @party = options[:party]
+      elsif options[:account] and options[:api_key]
+        @party = WufooParty.new(options[:account], options[:api_key])
+      else
+        raise WufooParty::InitializationException, "You must either specify a :party object or pass the :account and :api_key options. Please see the README."
+      end
+      @details = options[:details]
+    end
+
+    attr_accessor :details
+
+    # Return details
+    def [](id)
+      @details ||= @party.form(@id)
+      @details[id]
+    end
+  end
+
+  class Form < Entity
+    # Returns field details for a form.
+    # Pass true or :report to second arg to get fields for a report.
+    def fields
+      @party.get("forms/#{@id}/fields")['Fields']
+    end
+
+    # Return entries already submitted to a form.
+    # If you need to filter entries, pass an array as the first argument:
+    #   entries([[field_id, operator, value], ...])
+    # e.g.:
+    #   entries([['EntryId', 'Is_after', 12], ['EntryId', 'Is_before', 17]])
+    #   entries([['Field1', 'Is_equal', 'Tim']])
+    # The second arg is the match parameter (AND/OR) and defaults to 'AND', e.g.
+    #   entries([['Field2', 'Is_equal', 'Morgan'], ['Field2', 'Is_equal', 'Smith']], 'OR')
+    # See http://wufoo.com/docs/api/v3/entries/get/#filter for details
+    def entries(filters=[], filter_match='AND')
+      if filters.any?
+        options = {'match' => filter_match}
+        filters.each_with_index do |filter, index|
+          options["Filter#{index+1}"] = filter.join(' ')
         end
+        options = {:query => options}
+      else
+        options = {}
       end
+      @party.get("forms/#{@id}/entries", options)['Entries']
     end
+
+    # Submit form data to the form.
+    # Pass data as a hash, with field ids as the hash keys, e.g.
+    #   submit('Field1' => 'Tim', 'Field2' => 'Morgan')
+    # Return value includes the following keys:
+    # * Status
+    # * ErrorText
+    # * FieldErrors
+    def submit(data)
+      @party.post("forms/#{@id}/entries", :body => data)
+    end
+  end
+
+  class Report < Entity
+    # Returns field details for a form
+    # Pass true or :report to second arg to get fields for a report.
+    def fields
+      @party.get("reports/#{@id}/fields")['Fields']
+    end
+  end
+
+  class User < Entity
+
   end
 end

@@ -7,7 +7,7 @@ Lightweight wrapper for Wufoo API over HTTP using HTTParty.
 This is a very simple class that utilizes HTTParty -- a wonderful gem for
 consuming REST APIs.
 
-This lib supports both Wufoo's query and submit api version 2.0.
+This lib supports Wufoo's api version 3.0.
 
 == Installation
 
@@ -16,29 +16,41 @@ This lib supports both Wufoo's query and submit api version 2.0.
 == Usage
 
     require 'wufoo_party'
-    
+
     ACCOUNT = 'accountname'
     API_KEY = 'AAAA-BBBB-CCCC-DDDD'
     FORM_ID = 'my-form-id'
-    
+
     wufoo = WufooParty.new(ACCOUNT, API_KEY)
-    # you must use field numbers, shown on the 'API Information' page in Wufoo
-    wufoo.submit(FORM_ID, {
-      '1' => 'Tim',
-      '2' => 'Morgan'
+
+    wufoo.forms # list all accessible forms and details
+    form = wufoo.form(FORM_ID) # or details for a specific form
+
+    # query all entries
+    form.entries
+
+    # ...or filter entries (see http://wufoo.com/docs/api/v3/entries/get/#filter)
+    form.entries([['Field1', 'Is_equal_to', 'Tim']])
+
+    # To submit, use field numbers shown on the 'API Information' page in Wufoo
+    result = wufoo.submit(
+      'Field1' => 'Tim',
+      'Field2' => 'Morgan'
     })
-    result = wufoo.query(FORM_ID)
-    pp result['form']['Entries'].last['Pretty']
-    # {"Last"=>"Morgan",
-    #  "Name"=>"Tim"}
+    if result['Success'] == 0
+      puts result['ErrorText']
+    end
     
 == Feedback
 
 I’d love to hear from you if you have suggestions for improvement, bug fixes, or whatever. Email me at tim@timmorgan.org or fork the project and send a pull request.
 
-To run the tests, do this:
+To run the tests, you must create a form called "Test Form"
+and pass in its id via the ENV variable WUFOO_FORM_ID.
+Give the form a standard name and address field.
+Make the name field required. Then run:
 
     WUFOO_ACCOUNT=accountname \
     WUFOO_API_KEY=AAAA-BBBB-CCCC-DDDD \
-    WUFOO_FORM_ID=my-form-id \
+    WUFOO_FORM_ID=test-form \
     ruby -rrubygems test/wufoo_party_test.rb
