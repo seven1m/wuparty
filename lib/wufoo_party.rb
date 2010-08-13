@@ -137,12 +137,25 @@ class WufooParty
     def submit(data)
       @party.post("forms/#{@id}/entries", :body => data)
     end
+
+    # Returns comment details for the form.
+    # See Wufoo API documentation for possible options, e.g.
+    # you can specify 'entryId' => 123 to filter comments only for the specified entry.
+    def comments(options={})
+      options = {:query => options} if options.any?
+      @party.get("forms/#{@id}/comments", options)['Comments']
+    end
   end
 
   class Report < Entity
     # Returns field details for the report
     def fields
       @party.get("reports/#{@id}/fields")['Fields']
+    end
+
+    # Returns widget details for the report
+    def widgets
+      @party.get("reports/#{@id}/widgets")['Widgets']
     end
   end
 
