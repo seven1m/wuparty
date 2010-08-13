@@ -49,12 +49,11 @@
             </ol>
             <h3>public instance</h3>
             <ol>
-              <li><a href="#M000007">add_title_to_fields!</a></li>
-              <li><a href="#M000004">field_details</a></li>
-              <li><a href="#M000005">field_numbers_and_names_and_types</a></li>
-              <li><a href="#M000006">get_field_numbers</a></li>
-              <li><a href="#M000002">query</a></li>
-              <li><a href="#M000003">submit</a></li>
+              <li><a href="#M000005">form</a></li>
+              <li><a href="#M000002">forms</a></li>
+              <li><a href="#M000006">report</a></li>
+              <li><a href="#M000003">reports</a></li>
+              <li><a href="#M000004">users</a></li>
             </ol>
           </div>
           <div id='context'>
@@ -66,24 +65,25 @@
             </div>
           </div>
           <div id='section'>
+            <div id='class-list'>
+              <h2>Classes and Modules</h2>
+              Class <a href="WufooParty/Form.html" class="link">WufooParty::Form</a><br />
+              Class <a href="WufooParty/Report.html" class="link">WufooParty::Report</a><br />
+              Class <a href="WufooParty/User.html" class="link">WufooParty::User</a><br />
+            </div>
             <div id='constants-list'>
               <h2>Constants</h2>
               <div class='name-list'>
                 <table summary='Constants'>
                   <tr class='top-aligned-row context-row'>
-                    <td class='context-item-name'>QUERY_ENDPOINT</td>
+                    <td class='context-item-name'>ENDPOINT</td>
                     <td>=</td>
-                    <td class='context-item-value'>'http://%s.wufoo.com/api/query/'</td>
-                  </tr>
-                  <tr class='top-aligned-row context-row'>
-                    <td class='context-item-name'>SUBMIT_ENDPOINT</td>
-                    <td>=</td>
-                    <td class='context-item-value'>'http://%s.wufoo.com/api/insert/'</td>
+                    <td class='context-item-value'>'http://%s.wufoo.com/api/v3'</td>
                   </tr>
                   <tr class='top-aligned-row context-row'>
                     <td class='context-item-name'>API_VERSION</td>
                     <td>=</td>
-                    <td class='context-item-value'>'2.0'</td>
+                    <td class='context-item-value'>'3.0'</td>
                   </tr>
                 </table>
               </div>
@@ -105,119 +105,98 @@
                   <a class='source-toggle' href='#' onclick="toggleCode('M000001-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000001-source'><span class="ruby-comment cmt"># File lib/wufoo_party.rb, line 12</span>&#x000A;  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">account</span>, <span class="ruby-identifier">api_key</span>)&#x000A;    <span class="ruby-ivar">@account</span> = <span class="ruby-identifier">account</span>&#x000A;    <span class="ruby-ivar">@api_key</span> = <span class="ruby-identifier">api_key</span>&#x000A;    <span class="ruby-ivar">@field_numbers</span> = {}&#x000A;  <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000001-source'><span class="ruby-comment cmt"># File lib/wufoo_party.rb, line 14</span>&#x000A;  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">account</span>, <span class="ruby-identifier">api_key</span>)&#x000A;    <span class="ruby-ivar">@account</span> = <span class="ruby-identifier">account</span>&#x000A;    <span class="ruby-ivar">@api_key</span> = <span class="ruby-identifier">api_key</span>&#x000A;    <span class="ruby-ivar">@field_numbers</span> = {}&#x000A;  <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
               <h2>Public instance methods</h2>
-              <div class='method public-instance' id='method-M000007'>
-                <a name='M000007'></a>
-                <div class='synopsis'>
-                  <span class='name'>add_title_to_fields!</span>
-                  <span class='arguments'>(query_result)</span>
-                </div>
-                <div class='description'>
-                  <p>
-                  Given the result of a query, adds a &#8216;Pretty&#8217; key to each form
-                  entry that includes the field titles.
-                  </p>
-                </div>
-                <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000007-source'); return false">
-                    [show source]
-                  </a>
-                  <pre id='M000007-source'><span class="ruby-comment cmt"># File lib/wufoo_party.rb, line 66</span>&#x000A;  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_title_to_fields!</span>(<span class="ruby-identifier">query_result</span>)&#x000A;    <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">query_result</span>[<span class="ruby-value str">'form'</span>] <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">query_result</span>[<span class="ruby-value str">'form'</span>][<span class="ruby-value str">'Entries'</span>]&#x000A;      <span class="ruby-identifier">nums</span> = <span class="ruby-identifier">get_field_numbers</span>(<span class="ruby-identifier">query_result</span>[<span class="ruby-value str">'form'</span>][<span class="ruby-value str">'Fields'</span>])&#x000A;      <span class="ruby-identifier">query_result</span>[<span class="ruby-value str">'form'</span>][<span class="ruby-value str">'Entries'</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">entry</span><span class="ruby-operator">|</span>&#x000A;        <span class="ruby-identifier">entry</span>[<span class="ruby-value str">'Pretty'</span>] = {}&#x000A;        <span class="ruby-identifier">entry</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">key</span><span class="ruby-operator">|</span>&#x000A;          <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">key</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/^Field(\d+)$/</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">title</span> = <span class="ruby-identifier">nums</span>[<span class="ruby-identifier">$1</span>]&#x000A;            <span class="ruby-identifier">entry</span>[<span class="ruby-value str">'Pretty'</span>][<span class="ruby-identifier">title</span>] = <span class="ruby-identifier">entry</span>[<span class="ruby-identifier">key</span>]&#x000A;          <span class="ruby-keyword kw">end</span>&#x000A;        <span class="ruby-keyword kw">end</span>&#x000A;      <span class="ruby-keyword kw">end</span>&#x000A;    <span class="ruby-keyword kw">end</span>&#x000A;  <span class="ruby-keyword kw">end</span></pre>
-                </div>
-              </div>
-              <div class='method public-instance' id='method-M000004'>
-                <a name='M000004'></a>
-                <div class='synopsis'>
-                  <span class='name'>field_details</span>
-                  <span class='arguments'>(form_id)</span>
-                </div>
-                <div class='description'>
-                  <p>
-                  Queries a form to get its field details
-                  </p>
-                </div>
-                <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000004-source'); return false">
-                    [show source]
-                  </a>
-                  <pre id='M000004-source'><span class="ruby-comment cmt"># File lib/wufoo_party.rb, line 42</span>&#x000A;  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">field_details</span>(<span class="ruby-identifier">form_id</span>)&#x000A;    <span class="ruby-identifier">query</span>(<span class="ruby-identifier">form_id</span>)[<span class="ruby-value str">'form'</span>][<span class="ruby-value str">'Fields'</span>]&#x000A;  <span class="ruby-keyword kw">end</span></pre>
-                </div>
-              </div>
               <div class='method public-instance' id='method-M000005'>
                 <a name='M000005'></a>
                 <div class='synopsis'>
-                  <span class='name'>field_numbers_and_names_and_types</span>
+                  <span class='name'>form</span>
                   <span class='arguments'>(form_id)</span>
                 </div>
                 <div class='description'>
                   <p>
-                  Queries a form to get its field numbers and names and types
+                  Returns details about the specified form.
                   </p>
                 </div>
                 <div class='source'>
                   <a class='source-toggle' href='#' onclick="toggleCode('M000005-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000005-source'><span class="ruby-comment cmt"># File lib/wufoo_party.rb, line 47</span>&#x000A;  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">field_numbers_and_names_and_types</span>(<span class="ruby-identifier">form_id</span>)&#x000A;    <span class="ruby-identifier">get_field_numbers</span>(<span class="ruby-identifier">field_details</span>(<span class="ruby-identifier">form_id</span>))&#x000A;  <span class="ruby-keyword kw">end</span></pre>
-                </div>
-              </div>
-              <div class='method public-instance' id='method-M000006'>
-                <a name='M000006'></a>
-                <div class='synopsis'>
-                  <span class='name'>get_field_numbers</span>
-                  <span class='arguments'>(field_data, is_sub_fields=false, typeof=nil)</span>
-                </div>
-                <div class='description'>
-                  <p>
-                  Converts an array of field specs (returned by Wufoo) into a simple hash of
-                  <tt>{FIELDNUM =&gt; [FIELDNAME, FIELDTYPE]}</tt>
-                  </p>
-                </div>
-                <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000006-source'); return false">
-                    [show source]
-                  </a>
-                  <pre id='M000006-source'><span class="ruby-comment cmt"># File lib/wufoo_party.rb, line 52</span>&#x000A;  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_field_numbers</span>(<span class="ruby-identifier">field_data</span>, <span class="ruby-identifier">is_sub_fields</span>=<span class="ruby-keyword kw">false</span>, <span class="ruby-identifier">typeof</span>=<span class="ruby-keyword kw">nil</span>)&#x000A;    <span class="ruby-identifier">field_data</span>.<span class="ruby-identifier">inject</span>({}) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">hash</span>, <span class="ruby-identifier">field</span><span class="ruby-operator">|</span>&#x000A;      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">field</span>[<span class="ruby-value str">'SubFields'</span>]&#x000A;        <span class="ruby-identifier">hash</span>.<span class="ruby-identifier">merge!</span>(<span class="ruby-identifier">get_field_numbers</span>(<span class="ruby-identifier">field</span>[<span class="ruby-value str">'SubFields'</span>], <span class="ruby-identifier">:is_sub_fields</span>, <span class="ruby-identifier">field</span>[<span class="ruby-value str">'Typeof'</span>]))&#x000A;      <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">field</span>[<span class="ruby-value str">'ColumnId'</span>] <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/^\d+$/</span>&#x000A;        <span class="ruby-identifier">title</span> = <span class="ruby-identifier">is_sub_fields</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">field</span>[<span class="ruby-value str">'ChoicesText'</span>] <span class="ruby-operator">?</span> <span class="ruby-identifier">field</span>[<span class="ruby-value str">'ChoicesText'</span>] <span class="ruby-operator">:</span> <span class="ruby-identifier">field</span>[<span class="ruby-value str">'Title'</span>]&#x000A;        <span class="ruby-identifier">hash</span>[<span class="ruby-identifier">field</span>[<span class="ruby-value str">'ColumnId'</span>]] = [<span class="ruby-identifier">title</span>, <span class="ruby-identifier">field</span>[<span class="ruby-value str">'Typeof'</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">typeof</span>]&#x000A;      <span class="ruby-keyword kw">end</span>&#x000A;      <span class="ruby-identifier">hash</span>&#x000A;    <span class="ruby-keyword kw">end</span>&#x000A;  <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000005-source'><span class="ruby-comment cmt"># File lib/wufoo_party.rb, line 42</span>&#x000A;  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">form</span>(<span class="ruby-identifier">form_id</span>)&#x000A;    <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">f</span> = <span class="ruby-identifier">get</span>(<span class="ruby-node">&quot;forms/#{form_id}&quot;</span>)[<span class="ruby-value str">'Forms'</span>]&#x000A;      <span class="ruby-constant">Form</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">f</span>.<span class="ruby-identifier">first</span>[<span class="ruby-value str">'Url'</span>], <span class="ruby-identifier">:party</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>, <span class="ruby-identifier">:details</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">f</span>.<span class="ruby-identifier">first</span>)&#x000A;    <span class="ruby-keyword kw">end</span>&#x000A;  <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
               <div class='method public-instance' id='method-M000002'>
                 <a name='M000002'></a>
                 <div class='synopsis'>
-                  <span class='name'>query</span>
-                  <span class='arguments'>(form_id)</span>
+                  <span class='name'>forms</span>
+                  <span class='arguments'>()</span>
                 </div>
                 <div class='description'>
                   <p>
-                  Perform a query on a specific form_id. Returns details about the form, as
-                  well as individual form submission details.
+                  Returns list of forms and details accessible by the user account.
                   </p>
                 </div>
                 <div class='source'>
                   <a class='source-toggle' href='#' onclick="toggleCode('M000002-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000002-source'><span class="ruby-comment cmt"># File lib/wufoo_party.rb, line 20</span>&#x000A;  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">query</span>(<span class="ruby-identifier">form_id</span>)&#x000A;    <span class="ruby-identifier">args</span> = {&#x000A;      <span class="ruby-value str">'w_api_key'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@api_key</span>,&#x000A;      <span class="ruby-value str">'w_version'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">API_VERSION</span>,&#x000A;      <span class="ruby-value str">'w_form'</span>    =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">form_id</span>&#x000A;    }&#x000A;    <span class="ruby-identifier">result</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">post</span>(<span class="ruby-constant">QUERY_ENDPOINT</span> <span class="ruby-operator">%</span> <span class="ruby-ivar">@account</span>, <span class="ruby-identifier">:body</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">args</span>)&#x000A;    <span class="ruby-identifier">add_title_to_fields!</span>(<span class="ruby-identifier">result</span>)&#x000A;    <span class="ruby-identifier">result</span>&#x000A;  <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000002-source'><span class="ruby-comment cmt"># File lib/wufoo_party.rb, line 21</span>&#x000A;  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">forms</span>&#x000A;    <span class="ruby-identifier">get</span>(<span class="ruby-identifier">:forms</span>)[<span class="ruby-value str">'Forms'</span>].<span class="ruby-identifier">map</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">details</span><span class="ruby-operator">|</span>&#x000A;      <span class="ruby-constant">Form</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">details</span>[<span class="ruby-value str">'Url'</span>], <span class="ruby-identifier">:party</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>, <span class="ruby-identifier">:details</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">details</span>)&#x000A;    <span class="ruby-keyword kw">end</span>&#x000A;  <span class="ruby-keyword kw">end</span></pre>
+                </div>
+              </div>
+              <div class='method public-instance' id='method-M000006'>
+                <a name='M000006'></a>
+                <div class='synopsis'>
+                  <span class='name'>report</span>
+                  <span class='arguments'>(report_id)</span>
+                </div>
+                <div class='description'>
+                  <p>
+                  Returns details about the specified report.
+                  </p>
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000006-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='M000006-source'><span class="ruby-comment cmt"># File lib/wufoo_party.rb, line 49</span>&#x000A;  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">report</span>(<span class="ruby-identifier">report_id</span>)&#x000A;    <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">r</span> = <span class="ruby-identifier">get</span>(<span class="ruby-node">&quot;reports/#{report_id}&quot;</span>)[<span class="ruby-value str">'Reports'</span>]&#x000A;      <span class="ruby-constant">Form</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">r</span>.<span class="ruby-identifier">first</span>[<span class="ruby-value str">'Url'</span>], <span class="ruby-identifier">:party</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>, <span class="ruby-identifier">:details</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">r</span>.<span class="ruby-identifier">first</span>)&#x000A;    <span class="ruby-keyword kw">end</span>&#x000A;  <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
               <div class='method public-instance' id='method-M000003'>
                 <a name='M000003'></a>
                 <div class='synopsis'>
-                  <span class='name'>submit</span>
-                  <span class='arguments'>(form_id, data={})</span>
+                  <span class='name'>reports</span>
+                  <span class='arguments'>()</span>
                 </div>
                 <div class='description'>
                   <p>
-                  Perform a submission to a specific form_id. Returns status of operation.
+                  Returns list of reports and details accessible by the user account.
                   </p>
                 </div>
                 <div class='source'>
                   <a class='source-toggle' href='#' onclick="toggleCode('M000003-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000003-source'><span class="ruby-comment cmt"># File lib/wufoo_party.rb, line 33</span>&#x000A;  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">submit</span>(<span class="ruby-identifier">form_id</span>, <span class="ruby-identifier">data</span>={})&#x000A;    <span class="ruby-identifier">args</span> = {&#x000A;      <span class="ruby-value str">'w_api_key'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@api_key</span>,&#x000A;      <span class="ruby-value str">'w_form'</span>    =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">form_id</span>&#x000A;    }.<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">data</span>)&#x000A;    <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">post</span>(<span class="ruby-constant">SUBMIT_ENDPOINT</span> <span class="ruby-operator">%</span> <span class="ruby-ivar">@account</span>, <span class="ruby-identifier">:body</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">args</span>)&#x000A;  <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000003-source'><span class="ruby-comment cmt"># File lib/wufoo_party.rb, line 28</span>&#x000A;  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">reports</span>&#x000A;    <span class="ruby-identifier">get</span>(<span class="ruby-identifier">:reports</span>)[<span class="ruby-value str">'Reports'</span>].<span class="ruby-identifier">map</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">details</span><span class="ruby-operator">|</span>&#x000A;      <span class="ruby-constant">Report</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">details</span>[<span class="ruby-value str">'Url'</span>], <span class="ruby-identifier">:party</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>, <span class="ruby-identifier">:details</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">details</span>)&#x000A;    <span class="ruby-keyword kw">end</span>&#x000A;  <span class="ruby-keyword kw">end</span></pre>
+                </div>
+              </div>
+              <div class='method public-instance' id='method-M000004'>
+                <a name='M000004'></a>
+                <div class='synopsis'>
+                  <span class='name'>users</span>
+                  <span class='arguments'>()</span>
+                </div>
+                <div class='description'>
+                  <p>
+                  Returns list of users and details.
+                  </p>
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000004-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='M000004-source'><span class="ruby-comment cmt"># File lib/wufoo_party.rb, line 35</span>&#x000A;  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">users</span>&#x000A;    <span class="ruby-identifier">get</span>(<span class="ruby-identifier">:users</span>)[<span class="ruby-value str">'Users'</span>].<span class="ruby-identifier">map</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">details</span><span class="ruby-operator">|</span>&#x000A;      <span class="ruby-constant">User</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">details</span>[<span class="ruby-value str">'Url'</span>], <span class="ruby-identifier">:party</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>, <span class="ruby-identifier">:details</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">details</span>)&#x000A;    <span class="ruby-keyword kw">end</span>&#x000A;  <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
             </div>

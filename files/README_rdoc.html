@@ -31,7 +31,7 @@
         </div>
         <div class='last-update'>
           Last Update:
-          <span class='datetime'>Sun Feb 07 01:01:23 -0600 2010</span>
+          <span class='datetime'>Thu Aug 12 21:40:09 -0500 2010</span>
         </div>
       </div>
       <div id='content'>
@@ -47,12 +47,16 @@
             for consuming REST APIs.
             </p>
             <p>
-            This lib supports both Wufoo&#8217;s query and submit api version 2.0.
+            This lib supports Wufoo&#8217;s api version 3.0.
+            </p>
+            <p>
+            If you need to use version 2 of Wufoo&#8217;s api, please use the 0.1.x
+            release of <a href="../classes/WufooParty.html">WufooParty</a>.
             </p>
             <h2>Installation</h2>
             <pre>sudo gem install wufoo_party</pre>
             <h2>Usage</h2>
-            <pre>require 'wufoo_party'&#x000A;&#x000A;ACCOUNT = 'accountname'&#x000A;API_KEY = 'AAAA-BBBB-CCCC-DDDD'&#x000A;FORM_ID = 'my-form-id'&#x000A;&#x000A;wufoo = WufooParty.new(ACCOUNT, API_KEY)&#x000A;# you must use field numbers, shown on the 'API Information' page in Wufoo&#x000A;wufoo.submit(FORM_ID, {&#x000A;  '1' =&gt; 'Tim',&#x000A;  '2' =&gt; 'Morgan'&#x000A;})&#x000A;result = wufoo.query(FORM_ID)&#x000A;pp result['form']['Entries'].last['Pretty']&#x000A;# {&quot;Last&quot;=&gt;&quot;Morgan&quot;,&#x000A;#  &quot;Name&quot;=&gt;&quot;Tim&quot;}</pre>
+            <pre>require 'wufoo_party'&#x000A;&#x000A;ACCOUNT = 'accountname'&#x000A;API_KEY = 'AAAA-BBBB-CCCC-DDDD'&#x000A;FORM_ID = 'my-form-id'&#x000A;&#x000A;wufoo = WufooParty.new(ACCOUNT, API_KEY)&#x000A;&#x000A;wufoo.forms # list all accessible forms and details&#x000A;form = wufoo.form(FORM_ID) # or details for a specific form&#x000A;&#x000A;# query all entries&#x000A;form.entries&#x000A;&#x000A;# ...or filter entries (see http://wufoo.com/docs/api/v3/entries/get/#filter)&#x000A;form.entries([['Field1', 'Is_equal_to', 'Tim']])&#x000A;&#x000A;# To submit, use field numbers shown on the 'API Information' page in Wufoo&#x000A;result = wufoo.submit(&#x000A;  'Field1' =&gt; 'Tim',&#x000A;  'Field2' =&gt; 'Morgan'&#x000A;})&#x000A;if result['Success'] == 0&#x000A;  puts result['ErrorText']&#x000A;end</pre>
             <h2>Feedback</h2>
             <p>
             I’d love to hear from you if you have suggestions for improvement, bug
@@ -60,9 +64,11 @@
             send a pull request.
             </p>
             <p>
-            To run the tests, do this:
+            To run the tests, you must create a form called &#8220;Test Form&#8221; and
+            pass in its id via the ENV variable WUFOO_FORM_ID. Give the form a standard
+            name and address field. Make the name field required. Then run:
             </p>
-            <pre>WUFOO_ACCOUNT=accountname \&#x000A;WUFOO_API_KEY=AAAA-BBBB-CCCC-DDDD \&#x000A;WUFOO_FORM_ID=my-form-id \&#x000A;ruby -rrubygems test/wufoo_party_test.rb</pre>
+            <pre>WUFOO_ACCOUNT=accountname \&#x000A;WUFOO_API_KEY=AAAA-BBBB-CCCC-DDDD \&#x000A;WUFOO_FORM_ID=test-form \&#x000A;ruby -rrubygems test/wufoo_party_test.rb</pre>
           </div>
           <div id='section'>
           </div>

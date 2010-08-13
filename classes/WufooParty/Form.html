@@ -1,0 +1,173 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang='en'>
+  <head>
+    <title>: WufooParty::Form [WufooParty]</title>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
+    <link href='../../rdoc-style.css' media='screen' rel='stylesheet' type='text/css'>
+    <script type='text/javascript'>
+      //<![CDATA[
+        function popupCode(url) {
+          window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+        }
+        
+        function toggleCode(id) {
+          var code = document.getElementById(id)
+        
+          code.style.display = code.style.display != 'block' ? 'block' : 'none'
+          return true
+        }
+        
+        // Make codeblocks hidden by default
+        document.writeln('<' + 'style type="text/css">.method .source pre { display: none }<\/style>')
+      //]]>
+    </script>
+  </head>
+  <body class='page'>
+    <div class='class' id='wrapper'>
+      <div class='header'>
+        <h1 class='name'>
+          <span class='type'>Class</span>
+          WufooParty::Form
+        </h1>
+        <ol class='paths'>
+          <li>
+            <a href="../../files/lib/wufoo_party_rb.html">lib/wufoo_party.rb</a>
+          </li>
+        </ol>
+        <div class='parent'>
+          Parent:
+          <strong>WufooParty::Entity</strong>
+        </div>
+      </div>
+      <div id='content'>
+        <div id='text'>
+          <div id='method-list'>
+            <h2>Methods</h2>
+            <h3>public instance</h3>
+            <ol>
+              <li><a href="#M000012">comments</a></li>
+              <li><a href="#M000010">entries</a></li>
+              <li><a href="#M000009">fields</a></li>
+              <li><a href="#M000011">submit</a></li>
+            </ol>
+          </div>
+          <div id='section'>
+            <div id='methods'>
+              <h2>Public instance methods</h2>
+              <div class='method public-instance' id='method-M000012'>
+                <a name='M000012'></a>
+                <div class='synopsis'>
+                  <span class='name'>comments</span>
+                  <span class='arguments'>(options={})</span>
+                </div>
+                <div class='description'>
+                  <p>
+                  Returns comment details for the form. See Wufoo API documentation for
+                  possible options, e.g. you can specify &#8216;entryId&#8217; => 123 to
+                  filter comments only for the specified entry.
+                  </p>
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000012-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='M000012-source'><span class="ruby-comment cmt"># File lib/wufoo_party.rb, line 144</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">comments</span>(<span class="ruby-identifier">options</span>={})&#x000A;      <span class="ruby-identifier">options</span> = {<span class="ruby-identifier">:query</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">options</span>} <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">options</span>.<span class="ruby-identifier">any?</span>&#x000A;      <span class="ruby-ivar">@party</span>.<span class="ruby-identifier">get</span>(<span class="ruby-node">&quot;forms/#{@id}/comments&quot;</span>, <span class="ruby-identifier">options</span>)[<span class="ruby-value str">'Comments'</span>]&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                </div>
+              </div>
+              <div class='method public-instance' id='method-M000010'>
+                <a name='M000010'></a>
+                <div class='synopsis'>
+                  <span class='name'>entries</span>
+                  <span class='arguments'>(filters=[], filter_match='AND')</span>
+                </div>
+                <div class='description'>
+                  <p>
+                  Return entries already submitted to the form If you need to filter entries,
+                  pass an array as the first argument:
+                  </p>
+                  <pre>entries([[field_id, operator, value], ...])</pre>
+                  <p>
+                  e.g.:
+                  </p>
+                  <pre>entries([['EntryId', 'Is_after', 12], ['EntryId', 'Is_before', 17]])&#x000A;entries([['Field1', 'Is_equal', 'Tim']])</pre>
+                  <p>
+                  The second arg is the match parameter (AND/OR) and defaults to
+                  &#8216;AND&#8217;, e.g.
+                  </p>
+                  <pre>entries([['Field2', 'Is_equal', 'Morgan'], ['Field2', 'Is_equal', 'Smith']], 'OR')</pre>
+                  <p>
+                  See <a
+                  href="http://wufoo.com/docs/api/v3/entries/get/#filter">wufoo.com/docs/api/v3/entries/get/#filter</a>
+                  for details
+                  </p>
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000010-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='M000010-source'><span class="ruby-comment cmt"># File lib/wufoo_party.rb, line 117</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">entries</span>(<span class="ruby-identifier">filters</span>=[], <span class="ruby-identifier">filter_match</span>=<span class="ruby-value str">'AND'</span>)&#x000A;      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">filters</span>.<span class="ruby-identifier">any?</span>&#x000A;        <span class="ruby-identifier">options</span> = {<span class="ruby-value str">'match'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">filter_match</span>}&#x000A;        <span class="ruby-identifier">filters</span>.<span class="ruby-identifier">each_with_index</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">filter</span>, <span class="ruby-identifier">index</span><span class="ruby-operator">|</span>&#x000A;          <span class="ruby-identifier">options</span>[<span class="ruby-node">&quot;Filter#{index+1}&quot;</span>] = <span class="ruby-identifier">filter</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">' '</span>)&#x000A;        <span class="ruby-keyword kw">end</span>&#x000A;        <span class="ruby-identifier">options</span> = {<span class="ruby-identifier">:query</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">options</span>}&#x000A;      <span class="ruby-keyword kw">else</span>&#x000A;        <span class="ruby-identifier">options</span> = {}&#x000A;      <span class="ruby-keyword kw">end</span>&#x000A;      <span class="ruby-ivar">@party</span>.<span class="ruby-identifier">get</span>(<span class="ruby-node">&quot;forms/#{@id}/entries&quot;</span>, <span class="ruby-identifier">options</span>)[<span class="ruby-value str">'Entries'</span>]&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                </div>
+              </div>
+              <div class='method public-instance' id='method-M000009'>
+                <a name='M000009'></a>
+                <div class='synopsis'>
+                  <span class='name'>fields</span>
+                  <span class='arguments'>()</span>
+                </div>
+                <div class='description'>
+                  <p>
+                  Returns field details for the form.
+                  </p>
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000009-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='M000009-source'><span class="ruby-comment cmt"># File lib/wufoo_party.rb, line 104</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">fields</span>&#x000A;      <span class="ruby-ivar">@party</span>.<span class="ruby-identifier">get</span>(<span class="ruby-node">&quot;forms/#{@id}/fields&quot;</span>)[<span class="ruby-value str">'Fields'</span>]&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                </div>
+              </div>
+              <div class='method public-instance' id='method-M000011'>
+                <a name='M000011'></a>
+                <div class='synopsis'>
+                  <span class='name'>submit</span>
+                  <span class='arguments'>(data)</span>
+                </div>
+                <div class='description'>
+                  <p>
+                  Submit form data to the form. Pass data as a hash, with field ids as the
+                  hash keys, e.g.
+                  </p>
+                  <pre>submit('Field1' =&gt; 'Tim', 'Field2' =&gt; 'Morgan')</pre>
+                  <p>
+                  Return value includes the following keys:
+                  </p>
+                  <ul>
+                  <li>Status
+                  
+                  </li>
+                  <li>ErrorText
+                  
+                  </li>
+                  <li>FieldErrors
+                  
+                  </li>
+                  </ul>
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000011-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='M000011-source'><span class="ruby-comment cmt"># File lib/wufoo_party.rb, line 137</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">submit</span>(<span class="ruby-identifier">data</span>)&#x000A;      <span class="ruby-ivar">@party</span>.<span class="ruby-identifier">post</span>(<span class="ruby-node">&quot;forms/#{@id}/entries&quot;</span>, <span class="ruby-identifier">:body</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">data</span>)&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id='footer-push'></div>
+    </div>
+    <div id='footer'>
+      <a href="http://github.com/mislav/hanna/tree/master"><strong>Hanna</strong> RDoc template</a>
+    </div>
+  </body>
+</html>
