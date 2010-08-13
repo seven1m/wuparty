@@ -4,8 +4,7 @@ Lightweight wrapper for Wufoo API over HTTP using HTTParty.
 
 == About
 
-This is a very simple class that utilizes HTTParty -- a wonderful gem for
-consuming REST APIs.
+This is a very simple API wrapper that utilizes HTTParty -- a wonderful gem for consuming REST APIs.
 
 This lib supports Wufoo's api version 3.0.
 
