@@ -7,9 +7,6 @@ class WufooParty
   ENDPOINT    = 'http://%s.wufoo.com/api/v3'
   API_VERSION = '3.0'
 
-  class InitializationError < RuntimeError # :nodoc:
-  end
-
   # Create a new WufooParty object
   def initialize(account, api_key)
     @account = account
