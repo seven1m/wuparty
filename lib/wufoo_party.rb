@@ -100,13 +100,12 @@ class WufooParty
   end
 
   class Form < Entity
-    # Returns field details for a form.
-    # Pass true or :report to second arg to get fields for a report.
+    # Returns field details for the form.
     def fields
       @party.get("forms/#{@id}/fields")['Fields']
     end
 
-    # Return entries already submitted to a form.
+    # Return entries already submitted to the form
     # If you need to filter entries, pass an array as the first argument:
     #   entries([[field_id, operator, value], ...])
     # e.g.:
@@ -141,8 +140,7 @@ class WufooParty
   end
 
   class Report < Entity
-    # Returns field details for a form
-    # Pass true or :report to second arg to get fields for a report.
+    # Returns field details for the report
     def fields
       @party.get("reports/#{@id}/fields")['Fields']
     end
