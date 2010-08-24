@@ -14,4 +14,6 @@ If you need to use version 2 of Wufoo's api, please use the 0.1.x release of Wuf
   s.require_path = "lib"
   s.has_rdoc = true
   s.add_dependency("httparty")
+  s.add_dependency("multipart-post")
+  s.add_dependency("mime-types")
 end

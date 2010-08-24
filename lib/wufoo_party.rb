@@ -1,4 +1,70 @@
 require 'httparty'
+gem 'multipart-post'
+require 'net/http/post/multipart'
+gem 'mime-types'
+require 'mime/types'
+
+# multipart POST support from David Balater's fork of HTTParty:
+# http://github.com/dbalatero/httparty
+module HTTParty
+  module ClassMethods
+    def post(path, options={})
+      klass = options[:multipart] ? Net::HTTP::Post::Multipart : Net::HTTP::Post
+      perform_request klass, path, options
+    end
+  end
+  class Request
+    SupportedHTTPMethods << Net::HTTP::Post::Multipart
+    private
+      def setup_raw_request
+        if multipart?
+          @file_handles = []
+          io_objects = {}
+
+          options[:multipart].each do |field_name, info|
+            fp = File.open(info[:path])
+            @file_handles << fp
+
+            io_objects[field_name] = UploadIO.new(fp,
+                                                  info[:type],
+                                                  info[:path])
+          end
+
+          options[:body].each do |field_name, value|
+            io_objects[field_name] = value
+          end
+
+          @raw_request = http_method.new(uri.request_uri,
+                                         io_objects)
+
+          # We have to duplicate and merge the headers set by the
+          # multipart object to make sure that Net::HTTP 
+          # doesn't override them down the line when it calls
+          # initialize_http_header.
+          #
+          # Otherwise important headers like Content-Length,
+          # Accept, and Content-Type will be deleted.
+          original_headers = {}
+          @raw_request.each do |key, value|
+            original_headers[key] = value
+          end
+
+          options[:headers] ||= {}
+          original_headers.merge!(options[:headers])
+          options[:headers] = original_headers
+        else
+          @raw_request = http_method.new(uri.request_uri)
+          @raw_request.body = body if body
+        end
+
+        @raw_request.initialize_http_header options[:headers]
+        @raw_request.basic_auth(username, password) if options[:basic_auth]
+      end
+      def multipart?
+        Net::HTTP::Post::Multipart == http_method
+      end
+  end
+end
 
 class WufooParty
   include HTTParty
@@ -102,6 +168,26 @@ class WufooParty
       @party.get("forms/#{@id}/fields")['Fields']
     end
 
+    # Returns fields and subfields, as a flattened array, e.g.
+    #   [{'ID' => 'Field1', 'Title' => 'Name - First', 'Type' => 'shortname', 'Required' => true }, # (subfield)
+    #    {'ID' => 'Field2', 'Title' => 'Name - Last',  'Type' => 'shortname', 'Required' => true }, # (subfield)
+    #    {'ID' => 'Field3', 'Title' => 'Birthday',     'Type' => 'date',      'Required' => flase}] # (field)
+    # By default, only fields that can be submitted are returned. Pass *true* as the first arg to return all fields.
+    def flattened_fields(all=false)
+      flattened = []
+      fields.each do |field|
+        next unless all or field['ID'] =~ /^Field/
+        if field['SubFields']
+          field['SubFields'].each do |sub_field|
+            flattened << {'ID' => sub_field['ID'], 'Title' => field['Title'] + ' - ' + sub_field['Label'], 'Type' => field['Type'], 'Required' => field['IsRequired'] == '1'}
+          end
+        else
+          flattened << {'ID' => field['ID'], 'Title' => field['Title'], 'Type' => field['Type'], 'Required' => field['IsRequired'] == '1'}
+        end
+      end
+      flattened
+    end
+
     # Return entries already submitted to the form
     # If you need to filter entries, pass an array as the first argument:
     #   entries([[field_id, operator, value], ...])
@@ -132,7 +218,18 @@ class WufooParty
     # * ErrorText
     # * FieldErrors
     def submit(data)
-      @party.post("forms/#{@id}/entries", :body => data)
+      options = {}
+      data.each do |key, value|
+        if value.is_a?(Hash)
+          type = MIME::Types.of(value[:path]).first.content_type rescue 'application/octet-stream'
+          options[:multipart] ||= {}
+          options[:multipart][key] = {:type => type, :path => value[:path]}
+        else
+          options[:body] ||= {}
+          options[:body][key] = value
+        end
+      end
+      @party.post("forms/#{@id}/entries", options)
     end
 
     # Returns comment details for the form.
