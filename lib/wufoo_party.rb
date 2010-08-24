@@ -70,6 +70,9 @@ class WufooParty
   include HTTParty
   format :json
 
+  class ConnectionError < RuntimeError # :nodoc:
+  end
+
   ENDPOINT    = 'http://%s.wufoo.com/api/v3'
   API_VERSION = '3.0'
 
@@ -118,13 +121,23 @@ class WufooParty
   def get(method, options={}) # :nodoc:
     options.merge!(:basic_auth => {:username => @api_key})
     url = "#{base_url}/#{method}.json"
-    self.class.get(url, options)
+    result = self.class.get(url, options)
+    if result.is_a?(String)
+      raise ConnectionError, result
+    else
+      result
+    end
   end
 
   def post(method, options={}) # :nodoc:
     options.merge!(:basic_auth => {:username => @api_key})
     url = "#{base_url}/#{method}.json"
-    self.class.post(url, options)
+    result = self.class.post(url, options)
+    if result.is_a?(String)
+      raise ConnectionError, result
+    else
+      result
+    end
   end
 
   private
