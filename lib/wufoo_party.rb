@@ -70,6 +70,8 @@ class WufooParty
   include HTTParty
   format :json
 
+  VERSION = '0.9.0'
+
   class ConnectionError < RuntimeError # :nodoc:
   end
 
