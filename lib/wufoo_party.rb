@@ -75,7 +75,7 @@ class WufooParty
   class ConnectionError < RuntimeError # :nodoc:
   end
 
-  ENDPOINT    = 'http://%s.wufoo.com/api/v3'
+  ENDPOINT    = 'https://%s.wufoo.com/api/v3'
   API_VERSION = '3.0'
 
   # Create a new WufooParty object
