@@ -39,7 +39,9 @@ class WufooPartyTest < Test::Unit::TestCase
   end
 
   def test_non_existent_form
-    assert_nil @wufoo.form('does-not-exist')
+    assert_raise WufooParty::HTTPError do
+      @wufoo.form('does-not-exist')
+    end
   end
 
   def test_reports

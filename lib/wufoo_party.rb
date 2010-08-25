@@ -72,8 +72,16 @@ class WufooParty
 
   VERSION = '0.9.0'
 
-  class ConnectionError < RuntimeError # :nodoc:
+  # :stopdoc:
+  class ConnectionError < RuntimeError; end
+  class HTTPError < RuntimeError
+    def initialize(code, message)
+      @code = code
+      super(message)
+    end
+    attr_reader :code
   end
+  # :startdoc:
 
   ENDPOINT    = 'https://%s.wufoo.com/api/v3'
   API_VERSION = '3.0'
@@ -126,6 +134,8 @@ class WufooParty
     result = self.class.get(url, options)
     if result.is_a?(String)
       raise ConnectionError, result
+    elsif result['HTTPCode']
+      raise HTTPError.new(result['HTTPCode'], result['Text'])
     else
       result
     end
@@ -137,6 +147,8 @@ class WufooParty
     result = self.class.post(url, options)
     if result.is_a?(String)
       raise ConnectionError, result
+    elsif result['HTTPCode']
+      raise HTTPError.new(result['HTTPCode'], result['Text'])
     else
       result
     end
