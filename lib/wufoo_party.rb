@@ -72,7 +72,7 @@ class WufooParty
   include HTTParty
   format :json
 
-  VERSION = '0.9.0'
+  VERSION = '1.0.0'
 
   # Represents a general error connecting to the Wufoo service
   class ConnectionError < RuntimeError; end
