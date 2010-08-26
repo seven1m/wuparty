@@ -5,17 +5,18 @@ using HTTParty[http://httparty.rubyforge.org].
 
 == API Support
 
-Wufoo's REST API supports viewing and submitting of entries, filtering entries,
+Wufoo's REST API supports viewing and submitting entries, filtering entries,
 viewing reports, and viewing users.
 
 This library supports all methods of Wufoo's API version 3.0.
 
-If you need to use version 2 of Wufoo's API, please use the older 0.1.x release of WufooParty.
+There is an older version of this library (version 0.1.x) that only supports version 2 of Wufoo's API.
+Make sure you have latest version installed (1.0.0 or higher).
 
 == Source & Download
 
 * {Homepage & Demo}[http://wufooparty.71m.us]
-* {Sourcecode}[http://github.com/seven1m/wufoo_party]
+* {Source Code}[http://github.com/seven1m/wufoo_party]
 * {RDoc Documentation}[http://seven1m.github.com/wufoo_party]
 
 == Installation
