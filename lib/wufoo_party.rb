@@ -6,6 +6,7 @@ require 'mime/types'
 
 # multipart POST support from David Balater's fork of HTTParty:
 # http://github.com/dbalatero/httparty
+# :stopdoc:
 module HTTParty
   module ClassMethods
     def post(path, options={})
@@ -65,6 +66,7 @@ module HTTParty
       end
   end
 end
+# :startdoc:
 
 class WufooParty
   include HTTParty
@@ -72,16 +74,19 @@ class WufooParty
 
   VERSION = '0.9.0'
 
-  # :stopdoc:
+  # Represents a general error connecting to the Wufoo service
   class ConnectionError < RuntimeError; end
+
+  # Represents a specific error returned from Wufoo.
   class HTTPError < RuntimeError
-    def initialize(code, message)
+    def initialize(code, message) # :nodoc:
       @code = code
       super(message)
     end
+
+    # Error code
     attr_reader :code
   end
-  # :startdoc:
 
   ENDPOINT    = 'https://%s.wufoo.com/api/v3'
   API_VERSION = '3.0'
@@ -181,18 +186,33 @@ class WufooParty
     end
 
     attr_accessor :details
-
-    # Return details
-    def [](id)
-      @details ||= @party.form(@id)
-      @details[id]
-    end
   end
 
+  # Wraps an individual Wufoo Form.
+  # == Instantiation
+  # There are two ways to instantiate a Form object:
+  # 1. Via the parent WufooParty object that represents the account.
+  # 2. Via the WufooParty::Form class directly.
+  #   wufoo = WufooParty.new(ACCOUNT, API_KEY)
+  #   form = wufoo.form(FORM_ID)
+  #   # or...
+  #   form = WufooParty::Form.new(FORM_ID, :account => ACCOUNT, :api_key => API_KEY)
+  # The first technique makes a call to the Wufoo API to get the form details,
+  # while the second technique lazily loads the form details, once something is accessed via [].
+  # == \Form Details
+  # Access form details like it is a Hash, e.g.:
+  #   form['Name']
+  #   form['RedirectMessage']
   class Form < Entity
     # Returns field details for the form.
     def fields
       @party.get("forms/#{@id}/fields")['Fields']
+    end
+
+    # Access form details.
+    def [](id)
+      @details ||= @party.form(@id)
+      @details[id]
     end
 
     # Returns fields and subfields, as a flattened array, e.g.
@@ -215,7 +235,8 @@ class WufooParty
       flattened
     end
 
-    # Return entries already submitted to the form
+    # Return entries already submitted to the form.
+    #
     # If you need to filter entries, pass an array as the first argument:
     #   entries([[field_id, operator, value], ...])
     # e.g.:
@@ -240,10 +261,12 @@ class WufooParty
     # Submit form data to the form.
     # Pass data as a hash, with field ids as the hash keys, e.g.
     #   submit('Field1' => 'Tim', 'Field2' => 'Morgan')
-    # Return value includes the following keys:
+    # Return value is a Hash that includes the following keys:
     # * Status
     # * ErrorText
     # * FieldErrors
+    # You must submit values for required fields (including all sub fields),
+    # and dates must be formatted as <tt>YYYYMMDD</tt>.
     def submit(data)
       options = {}
       data.each do |key, value|
@@ -260,15 +283,36 @@ class WufooParty
     end
 
     # Returns comment details for the form.
-    # See Wufoo API documentation for possible options, e.g.
-    # you can specify 'entryId' => 123 to filter comments only for the specified entry.
+    # See Wufoo API documentation for possible options,
+    # e.g. to filter comments for a specific form entry:
+    #   form.comments('entryId' => 123)
     def comments(options={})
       options = {:query => options} if options.any?
       @party.get("forms/#{@id}/comments", options)['Comments']
     end
   end
 
+  # Wraps an individual Wufoo Report.
+  # == Instantiation
+  # There are two ways to instantiate a Report object:
+  # 1. Via the parent WufooParty object that represents the account.
+  # 2. Via the WufooParty::Report class directly.
+  #   wufoo = WufooParty.new(ACCOUNT, API_KEY)
+  #   report = wufoo.report(REPORT_ID)
+  #   # or...
+  #   report = WufooParty::Report.new(REPORT_ID, :account => ACCOUNT, :api_key => API_KEY)
+  # The first technique makes a call to the Wufoo API to get the report details,
+  # while the second technique lazily loads the report details, once something is accessed via [].
+  # == \Report Details
+  # Access report details like it is a Hash, e.g.:
+  #   report['Name']
   class Report < Entity
+    # Access report details.
+    def [](id)
+      @details ||= @party.report(@id)
+      @details[id]
+    end
+
     # Returns field details for the report
     def fields
       @party.get("reports/#{@id}/fields")['Fields']
@@ -280,7 +324,14 @@ class WufooParty
     end
   end
 
+  # Wraps an individual Wufoo User.
   class User < Entity
+
+    # Access user details.
+    def [](id)
+      @details ||= @party.report(@id)
+      @details[id]
+    end
 
   end
 end
