@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang='en'>
   <head>
-    <title>: WufooParty::User [WufooParty]</title>
+    <title>: HTTParty::ClassMethods [WufooParty]</title>
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
     <link href='../../rdoc-style.css' media='screen' rel='stylesheet' type='text/css'>
     <script type='text/javascript'>
@@ -26,52 +26,38 @@
     <div class='class' id='wrapper'>
       <div class='header'>
         <h1 class='name'>
-          <span class='type'>Class</span>
-          WufooParty::User
+          <span class='type'>Module</span>
+          HTTParty::ClassMethods
         </h1>
         <ol class='paths'>
           <li>
             <a href="../../files/lib/wufoo_party_rb.html">lib/wufoo_party.rb</a>
           </li>
         </ol>
-        <div class='parent'>
-          Parent:
-          <strong>WufooParty::Entity</strong>
-        </div>
       </div>
       <div id='content'>
         <div id='text'>
-          <div id='description'>
-            <p>
-            Wraps an individual Wufoo <a href="User.html">User</a>.
-            </p>
-          </div>
           <div id='method-list'>
             <h2>Methods</h2>
             <h3>public instance</h3>
             <ol>
-              <li><a href="#M000010">[]</a></li>
+              <li><a href="#M000014">post</a></li>
             </ol>
           </div>
           <div id='section'>
             <div id='methods'>
               <h2>Public instance methods</h2>
-              <div class='method public-instance' id='method-M000010'>
-                <a name='M000010'></a>
+              <div class='method public-instance' id='method-M000014'>
+                <a name='M000014'></a>
                 <div class='synopsis'>
-                  <span class='name'>[]</span>
-                  <span class='arguments'>(id)</span>
-                </div>
-                <div class='description'>
-                  <p>
-                  Access user details.
-                  </p>
+                  <span class='name'>post</span>
+                  <span class='arguments'>(path, options={})</span>
                 </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000010-source'); return false">
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000014-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000010-source'><span class="ruby-comment cmt"># File lib/wufoo_party.rb, line 331</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-operator">[]</span>(<span class="ruby-identifier">id</span>)&#x000A;      <span class="ruby-ivar">@details</span> <span class="ruby-operator">||=</span> <span class="ruby-ivar">@party</span>.<span class="ruby-identifier">report</span>(<span class="ruby-ivar">@id</span>)&#x000A;      <span class="ruby-ivar">@details</span>[<span class="ruby-identifier">id</span>]&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000014-source'><span class="ruby-comment cmt"># File lib/wufoo_party.rb, line 11</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">post</span>(<span class="ruby-identifier">path</span>, <span class="ruby-identifier">options</span>={})&#x000A;      <span class="ruby-identifier">klass</span> = <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:multipart</span>] <span class="ruby-operator">?</span> <span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">HTTP</span><span class="ruby-operator">::</span><span class="ruby-constant">Post</span><span class="ruby-operator">::</span><span class="ruby-constant">Multipart</span> <span class="ruby-operator">:</span> <span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">HTTP</span><span class="ruby-operator">::</span><span class="ruby-constant">Post</span>&#x000A;      <span class="ruby-identifier">perform_request</span> <span class="ruby-identifier">klass</span>, <span class="ruby-identifier">path</span>, <span class="ruby-identifier">options</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
             </div>

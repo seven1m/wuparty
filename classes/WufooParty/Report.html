@@ -41,12 +41,43 @@
       </div>
       <div id='content'>
         <div id='text'>
+          <div id='description'>
+            <p>
+            Wraps an individual Wufoo <a href="Report.html">Report</a>.
+            </p>
+            <h2>Instantiation</h2>
+            <p>
+            There are two ways to instantiate a <a href="Report.html">Report</a>
+            object:
+            </p>
+            <ol>
+            <li>Via the parent <a href="../WufooParty.html">WufooParty</a> object that
+            represents the account.
+            
+            </li>
+            <li>Via the <a href="Report.html">WufooParty::Report</a> class directly.
+            
+            </li>
+            </ol>
+            <pre>wufoo = WufooParty.new(ACCOUNT, API_KEY)&#x000A;report = wufoo.report(REPORT_ID)&#x000A;# or...&#x000A;report = WufooParty::Report.new(REPORT_ID, :account =&gt; ACCOUNT, :api_key =&gt; API_KEY)</pre>
+            <p>
+            The first technique makes a call to the Wufoo API to get the report
+            details, while the second technique lazily loads the report details, once
+            something is accessed via [].
+            </p>
+            <h2>Report Details</h2>
+            <p>
+            Access report details like it is a Hash, e.g.:
+            </p>
+            <pre>report['Name']</pre>
+          </div>
           <div id='method-list'>
             <h2>Methods</h2>
             <h3>public instance</h3>
             <ol>
-              <li><a href="#M000007">fields</a></li>
-              <li><a href="#M000008">widgets</a></li>
+              <li><a href="#M000007">[]</a></li>
+              <li><a href="#M000008">fields</a></li>
+              <li><a href="#M000009">widgets</a></li>
             </ol>
           </div>
           <div id='section'>
@@ -54,6 +85,24 @@
               <h2>Public instance methods</h2>
               <div class='method public-instance' id='method-M000007'>
                 <a name='M000007'></a>
+                <div class='synopsis'>
+                  <span class='name'>[]</span>
+                  <span class='arguments'>(id)</span>
+                </div>
+                <div class='description'>
+                  <p>
+                  Access report details.
+                  </p>
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000007-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='M000007-source'><span class="ruby-comment cmt"># File lib/wufoo_party.rb, line 311</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-operator">[]</span>(<span class="ruby-identifier">id</span>)&#x000A;      <span class="ruby-ivar">@details</span> <span class="ruby-operator">||=</span> <span class="ruby-ivar">@party</span>.<span class="ruby-identifier">report</span>(<span class="ruby-ivar">@id</span>)&#x000A;      <span class="ruby-ivar">@details</span>[<span class="ruby-identifier">id</span>]&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                </div>
+              </div>
+              <div class='method public-instance' id='method-M000008'>
+                <a name='M000008'></a>
                 <div class='synopsis'>
                   <span class='name'>fields</span>
                   <span class='arguments'>()</span>
@@ -64,14 +113,14 @@
                   </p>
                 </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000007-source'); return false">
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000008-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000007-source'><span class="ruby-comment cmt"># File lib/wufoo_party.rb, line 152</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">fields</span>&#x000A;      <span class="ruby-ivar">@party</span>.<span class="ruby-identifier">get</span>(<span class="ruby-node">&quot;reports/#{@id}/fields&quot;</span>)[<span class="ruby-value str">'Fields'</span>]&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000008-source'><span class="ruby-comment cmt"># File lib/wufoo_party.rb, line 317</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">fields</span>&#x000A;      <span class="ruby-ivar">@party</span>.<span class="ruby-identifier">get</span>(<span class="ruby-node">&quot;reports/#{@id}/fields&quot;</span>)[<span class="ruby-value str">'Fields'</span>]&#x000A;    <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
-              <div class='method public-instance' id='method-M000008'>
-                <a name='M000008'></a>
+              <div class='method public-instance' id='method-M000009'>
+                <a name='M000009'></a>
                 <div class='synopsis'>
                   <span class='name'>widgets</span>
                   <span class='arguments'>()</span>
@@ -82,10 +131,10 @@
                   </p>
                 </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000008-source'); return false">
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000009-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000008-source'><span class="ruby-comment cmt"># File lib/wufoo_party.rb, line 157</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">widgets</span>&#x000A;      <span class="ruby-ivar">@party</span>.<span class="ruby-identifier">get</span>(<span class="ruby-node">&quot;reports/#{@id}/widgets&quot;</span>)[<span class="ruby-value str">'Widgets'</span>]&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000009-source'><span class="ruby-comment cmt"># File lib/wufoo_party.rb, line 322</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">widgets</span>&#x000A;      <span class="ruby-ivar">@party</span>.<span class="ruby-identifier">get</span>(<span class="ruby-node">&quot;reports/#{@id}/widgets&quot;</span>)[<span class="ruby-value str">'Widgets'</span>]&#x000A;    <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
             </div>

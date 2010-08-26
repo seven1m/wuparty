@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang='en'>
   <head>
-    <title>: WufooParty::User [WufooParty]</title>
+    <title>: WufooParty::HTTPError [WufooParty]</title>
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
     <link href='../../rdoc-style.css' media='screen' rel='stylesheet' type='text/css'>
     <script type='text/javascript'>
@@ -27,7 +27,7 @@
       <div class='header'>
         <h1 class='name'>
           <span class='type'>Class</span>
-          WufooParty::User
+          WufooParty::HTTPError
         </h1>
         <ol class='paths'>
           <li>
@@ -36,43 +36,30 @@
         </ol>
         <div class='parent'>
           Parent:
-          <strong>WufooParty::Entity</strong>
+          <strong>RuntimeError</strong>
         </div>
       </div>
       <div id='content'>
         <div id='text'>
           <div id='description'>
             <p>
-            Wraps an individual Wufoo <a href="User.html">User</a>.
+            Represents a specific error returned from Wufoo.
             </p>
           </div>
-          <div id='method-list'>
-            <h2>Methods</h2>
-            <h3>public instance</h3>
-            <ol>
-              <li><a href="#M000010">[]</a></li>
-            </ol>
-          </div>
           <div id='section'>
-            <div id='methods'>
-              <h2>Public instance methods</h2>
-              <div class='method public-instance' id='method-M000010'>
-                <a name='M000010'></a>
-                <div class='synopsis'>
-                  <span class='name'>[]</span>
-                  <span class='arguments'>(id)</span>
-                </div>
-                <div class='description'>
-                  <p>
-                  Access user details.
-                  </p>
-                </div>
-                <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000010-source'); return false">
-                    [show source]
-                  </a>
-                  <pre id='M000010-source'><span class="ruby-comment cmt"># File lib/wufoo_party.rb, line 331</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-operator">[]</span>(<span class="ruby-identifier">id</span>)&#x000A;      <span class="ruby-ivar">@details</span> <span class="ruby-operator">||=</span> <span class="ruby-ivar">@party</span>.<span class="ruby-identifier">report</span>(<span class="ruby-ivar">@id</span>)&#x000A;      <span class="ruby-ivar">@details</span>[<span class="ruby-identifier">id</span>]&#x000A;    <span class="ruby-keyword kw">end</span></pre>
-                </div>
+            <div id='attribute-list'>
+              <h2 class='section-bar'>Attributes</h2>
+              <div class='name-list'>
+                <table>
+                  <tr class='top-aligned-row context-row'>
+                    <td class='context-item-name'>code</td>
+                    <td class='context-item-value'>[R]</td>
+                    <td class='context-item-desc'>
+                      
+                      Error code
+                    </td>
+                  </tr>
+                </table>
               </div>
             </div>
           </div>
