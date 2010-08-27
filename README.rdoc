@@ -21,7 +21,7 @@ Make sure you have latest version installed (1.0.0 or higher).
 
 == Installation
 
-    sudo gem install wufoo_party
+    gem install wufoo_party
 
 == Usage
 
