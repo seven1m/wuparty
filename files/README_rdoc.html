@@ -32,7 +32,7 @@
         </div>
         <div class='last-update'>
           Last Update:
-          <span class='datetime'>Thu Aug 26 14:54:55 -0500 2010</span>
+          <span class='datetime'>Fri Aug 27 09:40:08 -0500 2010</span>
         </div>
       </div>
       <div id='content'>
@@ -71,7 +71,7 @@
             </li>
             </ul>
             <h2>Installation</h2>
-            <pre>sudo gem install wufoo_party</pre>
+            <pre>gem install wufoo_party</pre>
             <h2>Usage</h2>
             <pre>require 'wufoo_party'&#x000A;&#x000A;ACCOUNT = 'accountname'&#x000A;API_KEY = 'AAAA-BBBB-CCCC-DDDD'&#x000A;FORM_ID = 'my-form-id'&#x000A;&#x000A;wufoo = WufooParty.new(ACCOUNT, API_KEY)&#x000A;&#x000A;wufoo.forms # list all accessible forms and details&#x000A;form = wufoo.form(FORM_ID) # or details for a specific form&#x000A;&#x000A;# query all entries&#x000A;form.entries&#x000A;&#x000A;# ...or filter entries (see http://wufoo.com/docs/api/v3/entries/get/#filter)&#x000A;form.entries([['Field1', 'Is_equal_to', 'Tim']])&#x000A;&#x000A;# To submit, use field numbers shown on the 'API Information' page in Wufoo&#x000A;result = wufoo.submit(&#x000A;  'Field1' =&gt; 'Tim',&#x000A;  'Field2' =&gt; 'Morgan'&#x000A;})&#x000A;if result['Success'] == 0&#x000A;  puts result['ErrorText']&#x000A;end</pre>
             <h2>Feedback</h2>
