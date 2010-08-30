@@ -31,8 +31,10 @@ module HTTParty
                                                   info[:path])
           end
 
-          options[:body].each do |field_name, value|
-            io_objects[field_name] = value
+          if options[:body]
+            options[:body].each do |field_name, value|
+              io_objects[field_name] = value
+            end
           end
 
           @raw_request = http_method.new(uri.request_uri,
