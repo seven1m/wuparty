@@ -70,11 +70,11 @@ module HTTParty
 end
 # :startdoc:
 
-class WufooParty
+class WuParty
   include HTTParty
   format :json
 
-  VERSION = '1.0.1'
+  VERSION = '1.0.2'
 
   # Represents a general error connecting to the Wufoo service
   class ConnectionError < RuntimeError; end
@@ -93,7 +93,7 @@ class WufooParty
   ENDPOINT    = 'https://%s.wufoo.com/api/v3'
   API_VERSION = '3.0'
 
-  # Create a new WufooParty object
+  # Create a new WuParty object
   def initialize(account, api_key)
     @account = account
     @api_key = api_key
@@ -180,9 +180,9 @@ class WufooParty
       if options[:party]
         @party = options[:party]
       elsif options[:account] and options[:api_key]
-        @party = WufooParty.new(options[:account], options[:api_key])
+        @party = WuParty.new(options[:account], options[:api_key])
       else
-        raise WufooParty::InitializationException, "You must either specify a :party object or pass the :account and :api_key options. Please see the README."
+        raise WuParty::InitializationException, "You must either specify a :party object or pass the :account and :api_key options. Please see the README."
       end
       @details = options[:details]
     end
@@ -193,12 +193,12 @@ class WufooParty
   # Wraps an individual Wufoo Form.
   # == Instantiation
   # There are two ways to instantiate a Form object:
-  # 1. Via the parent WufooParty object that represents the account.
-  # 2. Via the WufooParty::Form class directly.
-  #   wufoo = WufooParty.new(ACCOUNT, API_KEY)
+  # 1. Via the parent WuParty object that represents the account.
+  # 2. Via the WuParty::Form class directly.
+  #   wufoo = WuParty.new(ACCOUNT, API_KEY)
   #   form = wufoo.form(FORM_ID)
   #   # or...
-  #   form = WufooParty::Form.new(FORM_ID, :account => ACCOUNT, :api_key => API_KEY)
+  #   form = WuParty::Form.new(FORM_ID, :account => ACCOUNT, :api_key => API_KEY)
   # The first technique makes a call to the Wufoo API to get the form details,
   # while the second technique lazily loads the form details, once something is accessed via [].
   # == \Form Details
@@ -297,12 +297,12 @@ class WufooParty
   # Wraps an individual Wufoo Report.
   # == Instantiation
   # There are two ways to instantiate a Report object:
-  # 1. Via the parent WufooParty object that represents the account.
-  # 2. Via the WufooParty::Report class directly.
-  #   wufoo = WufooParty.new(ACCOUNT, API_KEY)
+  # 1. Via the parent WuParty object that represents the account.
+  # 2. Via the WuParty::Report class directly.
+  #   wufoo = WuParty.new(ACCOUNT, API_KEY)
   #   report = wufoo.report(REPORT_ID)
   #   # or...
-  #   report = WufooParty::Report.new(REPORT_ID, :account => ACCOUNT, :api_key => API_KEY)
+  #   report = WuParty::Report.new(REPORT_ID, :account => ACCOUNT, :api_key => API_KEY)
   # The first technique makes a call to the Wufoo API to get the report details,
   # while the second technique lazily loads the report details, once something is accessed via [].
   # == \Report Details

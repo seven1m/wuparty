@@ -1,7 +1,7 @@
-require File.dirname(__FILE__) + '/../lib/wufoo_party'
+require File.dirname(__FILE__) + '/../lib/wuparty'
 require 'test/unit'
 
-class WufooPartyTest < Test::Unit::TestCase
+class WuPartyTest < Test::Unit::TestCase
 
   # Must create a form called "Test Form" and pass in its id
   # via the ENV variable WUFOO_FORM_ID.
@@ -10,7 +10,7 @@ class WufooPartyTest < Test::Unit::TestCase
 
   def setup
     if ENV['WUFOO_ACCOUNT'] and ENV['WUFOO_API_KEY'] and ENV['WUFOO_FORM_ID']
-      @wufoo = WufooParty.new(ENV['WUFOO_ACCOUNT'], ENV['WUFOO_API_KEY'])
+      @wufoo = WuParty.new(ENV['WUFOO_ACCOUNT'], ENV['WUFOO_API_KEY'])
       @form_id = ENV['WUFOO_FORM_ID']
     else
       puts 'Must set WUFOO_ACCOUNT, WUFOO_API_KEY and WUFOO_FORM_ID env variables before running.'
@@ -34,12 +34,12 @@ class WufooPartyTest < Test::Unit::TestCase
   end
 
   def test_form_directly
-    form = WufooParty::Form.new(@form_id, :account => ENV['WUFOO_ACCOUNT'], :api_key => ENV['WUFOO_API_KEY'])
+    form = WuParty::Form.new(@form_id, :account => ENV['WUFOO_ACCOUNT'], :api_key => ENV['WUFOO_API_KEY'])
     assert_equal 'Test Form', form['Name']
   end
 
   def test_non_existent_form
-    assert_raise WufooParty::HTTPError do
+    assert_raise WuParty::HTTPError do
       @wufoo.form('does-not-exist')
     end
   end

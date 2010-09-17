@@ -1,10 +1,10 @@
 require 'hanna/rdoctask'
 Rake::RDocTask.new(:rdoc) do |rdoc|
-  rdoc.rdoc_files.include('README.rdoc', 'lib/wufoo_party.rb')
+  rdoc.rdoc_files.include('README.rdoc', 'lib/wuparty.rb')
   rdoc.main = "README.rdoc"
-  rdoc.title = "WufooParty"
+  rdoc.title = "WuParty"
   rdoc.rdoc_dir = 'doc'
-  rdoc.options << '--webcvs=http://github.com/seven1m/wufoo_party/tree/master/%s'
+  rdoc.options << '--webcvs=http://github.com/seven1m/wuparty/tree/master/%s'
 end
 
 
