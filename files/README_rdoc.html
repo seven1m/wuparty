@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang='en'>
   <head>
-    <title>File: README.rdoc [WufooParty]</title>
+    <title>File: README.rdoc [WuParty]</title>
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
     <link href='../rdoc-style.css' media='screen' rel='stylesheet' type='text/css'>
     <script type='text/javascript'>
@@ -28,19 +28,19 @@
         <div class='name'>README.rdoc</div>
         <div class='paths'>
           README.rdoc
-          (<a href="http://github.com/seven1m/wufoo_party/tree/master/README.rdoc">view online</a>)
+          (<a href="http://github.com/seven1m/wuparty/tree/master/README.rdoc">view online</a>)
         </div>
         <div class='last-update'>
           Last Update:
-          <span class='datetime'>Fri Aug 27 09:42:28 -0500 2010</span>
+          <span class='datetime'>Fri Sep 17 09:04:34 -0500 2010</span>
         </div>
       </div>
       <div id='content'>
         <div id='text'>
           <div id='description'>
-            <h1><a href="../classes/WufooParty.html">WufooParty</a></h1>
+            <h1><a href="../classes/WuParty.html">WuParty</a></h1>
             <p>
-            <a href="../classes/WufooParty.html">WufooParty</a> is a fairly lightweight
+            <a href="../classes/WuParty.html">WuParty</a> is a fairly lightweight
             wrapper for Wufoo&#8217;s REST <a
             href="http://wufoo.com/docs/api/v3">API</a> using <a
             href="http://httparty.rubyforge.org">HTTParty</a>.
@@ -60,26 +60,26 @@
             </p>
             <h2>Source &amp; Download</h2>
             <ul>
-            <li><a href="http://wufooparty.71m.us">Homepage & Demo</a>
+            <li><a href="http://wuparty.71m.us">Homepage & Demo</a>
             
             </li>
-            <li><a href="http://github.com/seven1m/wufoo_party">Source Code</a>
+            <li><a href="http://github.com/seven1m/wuparty">Source Code</a>
             
             </li>
-            <li><a href="http://seven1m.github.com/wufoo_party">RDoc Documentation</a>
+            <li><a href="http://seven1m.github.com/wuparty">RDoc Documentation</a>
             
             </li>
             </ul>
             <h2>Installation</h2>
-            <pre>gem install wufoo_party</pre>
+            <pre>gem install wuparty</pre>
             <h2>Usage</h2>
-            <pre>require 'wufoo_party'&#x000A;&#x000A;ACCOUNT = 'accountname'&#x000A;API_KEY = 'AAAA-BBBB-CCCC-DDDD'&#x000A;FORM_ID = 'my-form-id'&#x000A;&#x000A;wufoo = WufooParty.new(ACCOUNT, API_KEY)&#x000A;&#x000A;wufoo.forms # list all accessible forms and details&#x000A;form = wufoo.form(FORM_ID) # or details for a specific form&#x000A;&#x000A;# query all entries&#x000A;form.entries&#x000A;&#x000A;# ...or filter entries (see http://wufoo.com/docs/api/v3/entries/get/#filter)&#x000A;form.entries([['Field1', 'Is_equal_to', 'Tim']])&#x000A;&#x000A;# To submit, use field numbers shown on the 'API Information' page in Wufoo&#x000A;result = wufoo.submit(&#x000A;  'Field1' =&gt; 'Tim',&#x000A;  'Field2' =&gt; 'Morgan'&#x000A;})&#x000A;if result['Success'] == 0&#x000A;  puts result['ErrorText']&#x000A;end</pre>
+            <pre>require 'wuparty'&#x000A;&#x000A;ACCOUNT = 'accountname'&#x000A;API_KEY = 'AAAA-BBBB-CCCC-DDDD'&#x000A;FORM_ID = 'my-form-id'&#x000A;&#x000A;wufoo = WuParty.new(ACCOUNT, API_KEY)&#x000A;&#x000A;wufoo.forms # list all accessible forms and details&#x000A;form = wufoo.form(FORM_ID) # or details for a specific form&#x000A;&#x000A;# query all entries&#x000A;form.entries&#x000A;&#x000A;# ...or filter entries (see http://wufoo.com/docs/api/v3/entries/get/#filter)&#x000A;form.entries([['Field1', 'Is_equal_to', 'Tim']])&#x000A;&#x000A;# To submit, use field numbers shown on the 'API Information' page in Wufoo&#x000A;result = wufoo.submit(&#x000A;  'Field1' =&gt; 'Tim',&#x000A;  'Field2' =&gt; 'Morgan'&#x000A;})&#x000A;if result['Success'] == 0&#x000A;  puts result['ErrorText']&#x000A;end</pre>
             <h2>Feedback</h2>
             <p>
             I’d love to hear from you if you have suggestions for improvement, bug
             fixes, or whatever. Email me at <a
             href="mailto:tim@timmorgan.org">tim@timmorgan.org</a> or fork the <a
-            href="http://github.com/seven1m/wufoo_party">project</a> and send a pull
+            href="http://github.com/seven1m/wuparty">project</a> and send a pull
             request.
             </p>
             <p>
@@ -91,7 +91,7 @@
             pass in its id via the ENV variable WUFOO_FORM_ID. Give the form a standard
             name and address field. Make the name field required. Then run:
             </p>
-            <pre>WUFOO_ACCOUNT=accountname \&#x000A;WUFOO_API_KEY=AAAA-BBBB-CCCC-DDDD \&#x000A;WUFOO_FORM_ID=test-form \&#x000A;ruby -rrubygems test/wufoo_party_test.rb</pre>
+            <pre>WUFOO_ACCOUNT=accountname \&#x000A;WUFOO_API_KEY=AAAA-BBBB-CCCC-DDDD \&#x000A;WUFOO_FORM_ID=test-form \&#x000A;ruby -rrubygems test/wuparty_test.rb</pre>
             <h2>License</h2>
             <p>
             Copyright &#169; 2010 Tim Morgan

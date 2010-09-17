@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang='en'>
   <head>
-    <title>: WufooParty [WufooParty]</title>
+    <title>: WuParty [WuParty]</title>
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
     <link href='../rdoc-style.css' media='screen' rel='stylesheet' type='text/css'>
     <script type='text/javascript'>
@@ -27,12 +27,12 @@
       <div class='header'>
         <h1 class='name'>
           <span class='type'>Class</span>
-          WufooParty
+          WuParty
         </h1>
         <ol class='paths'>
           <li>
-            <a href="../files/lib/wufoo_party_rb.html">lib/wufoo_party.rb</a>
-            (<a href="http://github.com/seven1m/wufoo_party/tree/master/lib/wufoo_party.rb">view online</a>)
+            <a href="../files/lib/wuparty_rb.html">lib/wuparty.rb</a>
+            (<a href="http://github.com/seven1m/wuparty/tree/master/lib/wuparty.rb">view online</a>)
           </li>
         </ol>
         <div class='parent'>
@@ -68,11 +68,11 @@
           <div id='section'>
             <div id='class-list'>
               <h2>Classes and Modules</h2>
-              Class <a href="WufooParty/ConnectionError.html" class="link">WufooParty::ConnectionError</a><br />
-              Class <a href="WufooParty/Form.html" class="link">WufooParty::Form</a><br />
-              Class <a href="WufooParty/HTTPError.html" class="link">WufooParty::HTTPError</a><br />
-              Class <a href="WufooParty/Report.html" class="link">WufooParty::Report</a><br />
-              Class <a href="WufooParty/User.html" class="link">WufooParty::User</a><br />
+              Class <a href="WuParty/ConnectionError.html" class="link">WuParty::ConnectionError</a><br />
+              Class <a href="WuParty/Form.html" class="link">WuParty::Form</a><br />
+              Class <a href="WuParty/HTTPError.html" class="link">WuParty::HTTPError</a><br />
+              Class <a href="WuParty/Report.html" class="link">WuParty::Report</a><br />
+              Class <a href="WuParty/User.html" class="link">WuParty::User</a><br />
             </div>
             <div id='constants-list'>
               <h2>Constants</h2>
@@ -81,7 +81,7 @@
                   <tr class='top-aligned-row context-row'>
                     <td class='context-item-name'>VERSION</td>
                     <td>=</td>
-                    <td class='context-item-value'>'1.0.1'</td>
+                    <td class='context-item-value'>'1.0.2'</td>
                   </tr>
                   <tr class='top-aligned-row context-row'>
                     <td class='context-item-name'>ENDPOINT</td>
@@ -106,14 +106,14 @@
                 </div>
                 <div class='description'>
                   <p>
-                  Create a new <a href="WufooParty.html">WufooParty</a> object
+                  Create a new <a href="WuParty.html">WuParty</a> object
                   </p>
                 </div>
                 <div class='source'>
                   <a class='source-toggle' href='#' onclick="toggleCode('M000001-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000001-source'><span class="ruby-comment cmt"># File lib/wufoo_party.rb, line 97</span>&#x000A;  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">account</span>, <span class="ruby-identifier">api_key</span>)&#x000A;    <span class="ruby-ivar">@account</span> = <span class="ruby-identifier">account</span>&#x000A;    <span class="ruby-ivar">@api_key</span> = <span class="ruby-identifier">api_key</span>&#x000A;    <span class="ruby-ivar">@field_numbers</span> = {}&#x000A;  <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000001-source'><span class="ruby-comment cmt"># File lib/wuparty.rb, line 97</span>&#x000A;  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">account</span>, <span class="ruby-identifier">api_key</span>)&#x000A;    <span class="ruby-ivar">@account</span> = <span class="ruby-identifier">account</span>&#x000A;    <span class="ruby-ivar">@api_key</span> = <span class="ruby-identifier">api_key</span>&#x000A;    <span class="ruby-ivar">@field_numbers</span> = {}&#x000A;  <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
               <h2>Public instance methods</h2>
@@ -132,7 +132,7 @@
                   <a class='source-toggle' href='#' onclick="toggleCode('M000005-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000005-source'><span class="ruby-comment cmt"># File lib/wufoo_party.rb, line 125</span>&#x000A;  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">form</span>(<span class="ruby-identifier">form_id</span>)&#x000A;    <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">f</span> = <span class="ruby-identifier">get</span>(<span class="ruby-node">&quot;forms/#{form_id}&quot;</span>)[<span class="ruby-value str">'Forms'</span>]&#x000A;      <span class="ruby-constant">Form</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">f</span>.<span class="ruby-identifier">first</span>[<span class="ruby-value str">'Url'</span>], <span class="ruby-identifier">:party</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>, <span class="ruby-identifier">:details</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">f</span>.<span class="ruby-identifier">first</span>)&#x000A;    <span class="ruby-keyword kw">end</span>&#x000A;  <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000005-source'><span class="ruby-comment cmt"># File lib/wuparty.rb, line 125</span>&#x000A;  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">form</span>(<span class="ruby-identifier">form_id</span>)&#x000A;    <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">f</span> = <span class="ruby-identifier">get</span>(<span class="ruby-node">&quot;forms/#{form_id}&quot;</span>)[<span class="ruby-value str">'Forms'</span>]&#x000A;      <span class="ruby-constant">Form</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">f</span>.<span class="ruby-identifier">first</span>[<span class="ruby-value str">'Url'</span>], <span class="ruby-identifier">:party</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>, <span class="ruby-identifier">:details</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">f</span>.<span class="ruby-identifier">first</span>)&#x000A;    <span class="ruby-keyword kw">end</span>&#x000A;  <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
               <div class='method public-instance' id='method-M000002'>
@@ -150,7 +150,7 @@
                   <a class='source-toggle' href='#' onclick="toggleCode('M000002-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000002-source'><span class="ruby-comment cmt"># File lib/wufoo_party.rb, line 104</span>&#x000A;  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">forms</span>&#x000A;    <span class="ruby-identifier">get</span>(<span class="ruby-identifier">:forms</span>)[<span class="ruby-value str">'Forms'</span>].<span class="ruby-identifier">map</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">details</span><span class="ruby-operator">|</span>&#x000A;      <span class="ruby-constant">Form</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">details</span>[<span class="ruby-value str">'Url'</span>], <span class="ruby-identifier">:party</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>, <span class="ruby-identifier">:details</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">details</span>)&#x000A;    <span class="ruby-keyword kw">end</span>&#x000A;  <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000002-source'><span class="ruby-comment cmt"># File lib/wuparty.rb, line 104</span>&#x000A;  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">forms</span>&#x000A;    <span class="ruby-identifier">get</span>(<span class="ruby-identifier">:forms</span>)[<span class="ruby-value str">'Forms'</span>].<span class="ruby-identifier">map</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">details</span><span class="ruby-operator">|</span>&#x000A;      <span class="ruby-constant">Form</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">details</span>[<span class="ruby-value str">'Url'</span>], <span class="ruby-identifier">:party</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>, <span class="ruby-identifier">:details</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">details</span>)&#x000A;    <span class="ruby-keyword kw">end</span>&#x000A;  <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
               <div class='method public-instance' id='method-M000006'>
@@ -168,7 +168,7 @@
                   <a class='source-toggle' href='#' onclick="toggleCode('M000006-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000006-source'><span class="ruby-comment cmt"># File lib/wufoo_party.rb, line 132</span>&#x000A;  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">report</span>(<span class="ruby-identifier">report_id</span>)&#x000A;    <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">r</span> = <span class="ruby-identifier">get</span>(<span class="ruby-node">&quot;reports/#{report_id}&quot;</span>)[<span class="ruby-value str">'Reports'</span>]&#x000A;      <span class="ruby-constant">Form</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">r</span>.<span class="ruby-identifier">first</span>[<span class="ruby-value str">'Url'</span>], <span class="ruby-identifier">:party</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>, <span class="ruby-identifier">:details</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">r</span>.<span class="ruby-identifier">first</span>)&#x000A;    <span class="ruby-keyword kw">end</span>&#x000A;  <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000006-source'><span class="ruby-comment cmt"># File lib/wuparty.rb, line 132</span>&#x000A;  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">report</span>(<span class="ruby-identifier">report_id</span>)&#x000A;    <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">r</span> = <span class="ruby-identifier">get</span>(<span class="ruby-node">&quot;reports/#{report_id}&quot;</span>)[<span class="ruby-value str">'Reports'</span>]&#x000A;      <span class="ruby-constant">Form</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">r</span>.<span class="ruby-identifier">first</span>[<span class="ruby-value str">'Url'</span>], <span class="ruby-identifier">:party</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>, <span class="ruby-identifier">:details</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">r</span>.<span class="ruby-identifier">first</span>)&#x000A;    <span class="ruby-keyword kw">end</span>&#x000A;  <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
               <div class='method public-instance' id='method-M000003'>
@@ -186,7 +186,7 @@
                   <a class='source-toggle' href='#' onclick="toggleCode('M000003-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000003-source'><span class="ruby-comment cmt"># File lib/wufoo_party.rb, line 111</span>&#x000A;  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">reports</span>&#x000A;    <span class="ruby-identifier">get</span>(<span class="ruby-identifier">:reports</span>)[<span class="ruby-value str">'Reports'</span>].<span class="ruby-identifier">map</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">details</span><span class="ruby-operator">|</span>&#x000A;      <span class="ruby-constant">Report</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">details</span>[<span class="ruby-value str">'Url'</span>], <span class="ruby-identifier">:party</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>, <span class="ruby-identifier">:details</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">details</span>)&#x000A;    <span class="ruby-keyword kw">end</span>&#x000A;  <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000003-source'><span class="ruby-comment cmt"># File lib/wuparty.rb, line 111</span>&#x000A;  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">reports</span>&#x000A;    <span class="ruby-identifier">get</span>(<span class="ruby-identifier">:reports</span>)[<span class="ruby-value str">'Reports'</span>].<span class="ruby-identifier">map</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">details</span><span class="ruby-operator">|</span>&#x000A;      <span class="ruby-constant">Report</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">details</span>[<span class="ruby-value str">'Url'</span>], <span class="ruby-identifier">:party</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>, <span class="ruby-identifier">:details</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">details</span>)&#x000A;    <span class="ruby-keyword kw">end</span>&#x000A;  <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
               <div class='method public-instance' id='method-M000004'>
@@ -204,7 +204,7 @@
                   <a class='source-toggle' href='#' onclick="toggleCode('M000004-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000004-source'><span class="ruby-comment cmt"># File lib/wufoo_party.rb, line 118</span>&#x000A;  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">users</span>&#x000A;    <span class="ruby-identifier">get</span>(<span class="ruby-identifier">:users</span>)[<span class="ruby-value str">'Users'</span>].<span class="ruby-identifier">map</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">details</span><span class="ruby-operator">|</span>&#x000A;      <span class="ruby-constant">User</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">details</span>[<span class="ruby-value str">'Url'</span>], <span class="ruby-identifier">:party</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>, <span class="ruby-identifier">:details</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">details</span>)&#x000A;    <span class="ruby-keyword kw">end</span>&#x000A;  <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000004-source'><span class="ruby-comment cmt"># File lib/wuparty.rb, line 118</span>&#x000A;  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">users</span>&#x000A;    <span class="ruby-identifier">get</span>(<span class="ruby-identifier">:users</span>)[<span class="ruby-value str">'Users'</span>].<span class="ruby-identifier">map</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">details</span><span class="ruby-operator">|</span>&#x000A;      <span class="ruby-constant">User</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">details</span>[<span class="ruby-value str">'Url'</span>], <span class="ruby-identifier">:party</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>, <span class="ruby-identifier">:details</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">details</span>)&#x000A;    <span class="ruby-keyword kw">end</span>&#x000A;  <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
             </div>
