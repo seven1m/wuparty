@@ -15,7 +15,6 @@ Make sure you have latest version installed (1.0.0 or higher).
 
 == Source & Download
 
-* {Homepage & Demo}[http://wuparty.71m.us]
 * {Source Code}[http://github.com/seven1m/wuparty]
 * {RDoc Documentation}[http://seven1m.github.com/wuparty]
 
