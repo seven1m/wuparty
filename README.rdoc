@@ -42,7 +42,7 @@ Make sure you have latest version installed (1.0.0 or higher).
     form.entries([['Field1', 'Is_equal_to', 'Tim']])
 
     # To submit, use field numbers shown on the 'API Information' page in Wufoo
-    result = wufoo.submit(
+    result = form.submit({
       'Field1' => 'Tim',
       'Field2' => 'Morgan'
     })
