@@ -128,6 +128,14 @@ class WuParty
     end
   end
 
+  def add_webhook(form_id, url)
+    put("forms/#{form_id}/webhooks", :body => {'url' => url})
+  end
+
+  def delete_webhook(form_id, webhook_hash)
+    delete("forms/#{form_id}/webhooks/#{webhook_hash}")
+  end
+
   # Returns details about the specified report.
   def report(report_id)
     if r = get("reports/#{report_id}")['Reports']
@@ -136,35 +144,38 @@ class WuParty
   end
 
   def get(method, options={}) # :nodoc:
-    options.merge!(:basic_auth => {:username => @api_key})
-    url = "#{base_url}/#{method}.json"
-    result = self.class.get(url, options)
-    if result.is_a?(String)
-      raise ConnectionError, result
-    elsif result['HTTPCode']
-      raise HTTPError.new(result['HTTPCode'], result['Text'])
-    else
-      result
-    end
+    handle_http_verb(:get, method, options)
   end
 
   def post(method, options={}) # :nodoc:
-    options.merge!(:basic_auth => {:username => @api_key})
-    url = "#{base_url}/#{method}.json"
-    result = self.class.post(url, options)
-    if result.is_a?(String)
-      raise ConnectionError, result
-    elsif result['HTTPCode']
-      raise HTTPError.new(result['HTTPCode'], result['Text'])
-    else
-      result
-    end
+    handle_http_verb(:post, method, options)
+  end
+
+  def put(method, options={}) # :nodoc:
+    handle_http_verb(:put, method, options)
+  end
+
+  def delete(method, options={}) # :nodoc:
+    handle_http_verb(:delete, method, options)
   end
 
   private
 
     def base_url
       ENDPOINT % @account
+    end
+
+    def handle_http_verb(verb, action, options={})
+      options.merge!(:basic_auth => {:username => @api_key})
+      url = "#{base_url}/#{action}.json"
+      result = self.class.send(verb, url, options)
+      if result.is_a?(String)
+        raise ConnectionError, result
+      elsif result['HTTPCode']
+        raise HTTPError.new(result['HTTPCode'], result['Text'])
+      else
+        result
+      end
     end
 
   public
