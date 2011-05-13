@@ -52,9 +52,11 @@ Make sure you have latest version installed (1.0.0 or higher).
 
     # Add a webhook to your Wufoo form.
     # Any submission to this form will now post to the given url.
-    result = wufoo.add_webhook(FORM_ID, 'http://www.postbin.org/zh9iy1')
+    result = form.add_webhook('http://www.postbin.org/zh9iy1')
+    result = form.delete_webhook(result["WebHookPutResult"]["Hash"])
 
-    # Remove the specified webhook from your Wufoo form.
+    # Or, directly through wufoo:
+    result = wufoo.add_webhook(FORM_ID, 'http://www.postbin.org/zh9iy1')
     result = wufoo.delete_webhook(FORM_ID, result["WebHookPutResult"]["Hash"])
     
 == Feedback
