@@ -228,6 +228,14 @@ class WuParty
       @details[id]
     end
 
+    def add_webhook(url)
+      @party.add_webhook(@details["Hash"], url)
+    end
+
+    def delete_webhook(webhook_id)
+      @party.delete_webhook(@details["Hash"], webhook_id)
+    end
+
     # Returns fields and subfields, as a flattened array, e.g.
     #   [{'ID' => 'Field1', 'Title' => 'Name - First', 'Type' => 'shortname', 'Required' => true }, # (subfield)
     #    {'ID' => 'Field2', 'Title' => 'Name - Last',  'Type' => 'shortname', 'Required' => true }, # (subfield)
