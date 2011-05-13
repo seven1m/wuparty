@@ -49,6 +49,15 @@ Make sure you have latest version installed (1.0.0 or higher).
     if result['Success'] == 0
       puts result['ErrorText']
     end
+
+    # Add a webhook to your Wufoo form.
+    # Any submission to this form will now post to the given url.
+    result = form.add_webhook('http://www.postbin.org/zh9iy1')
+    result = form.delete_webhook(result["WebHookPutResult"]["Hash"])
+
+    # Or, directly through wufoo:
+    result = wufoo.add_webhook(FORM_ID, 'http://www.postbin.org/zh9iy1')
+    result = wufoo.delete_webhook(FORM_ID, result["WebHookPutResult"]["Hash"])
     
 == Feedback
 
