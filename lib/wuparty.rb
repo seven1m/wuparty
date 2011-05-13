@@ -128,8 +128,12 @@ class WuParty
     end
   end
 
-  def webhook(form_id, url)
-    WuParty.put("forms/#{form_id}/webhook", :party => self, :body => {'url' => url})
+  def add_webhook(form_id, url)
+    put("forms/#{form_id}/webhooks", :body => {'url' => url})
+  end
+
+  def delete_webhook(form_id, webhook_hash)
+    delete("forms/#{form_id}/webhooks/#{webhook_hash}")
   end
 
   # Returns details about the specified report.
@@ -149,6 +153,10 @@ class WuParty
 
   def put(method, options={}) # :nodoc:
     handle_http_verb(:put, method, options)
+  end
+
+  def delete(method, options={}) # :nodoc:
+    handle_http_verb(:delete, method, options)
   end
 
   private
