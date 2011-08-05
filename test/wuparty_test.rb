@@ -28,6 +28,10 @@ class WuPartyTest < Test::Unit::TestCase
     assert_equal 'Test Form', form['Name']
   end
 
+  def test_get_form_id
+    assert_equal 1, @wufoo.forms.select {|f| f.id == 'test-form'}.length
+  end
+
   def test_form_by_hash
     hash = @wufoo.form(@form_id)['Hash']
     assert @wufoo.form(hash)
