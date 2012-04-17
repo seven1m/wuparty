@@ -94,7 +94,7 @@ class WuParty
   API_VERSION = '3.0'
 
   # uses the Login API to fetch a user's API key
-  def self.fetch_api_key(integration_key, email, password, account = nil)
+  def self.login(integration_key, email, password, account = nil)
     result = self.post("https://wufoo.com/api/v3/login.json", { :body => { :integrationKey => integration_key, :email => email, :password => password, :subdomain => account }})
     puts result
     if result.is_a?(String)
