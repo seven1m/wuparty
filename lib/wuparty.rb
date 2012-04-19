@@ -141,8 +141,8 @@ class WuParty
     end
   end
 
-  def add_webhook(form_id, url)
-    put("forms/#{form_id}/webhooks", :body => {'url' => url})
+  def add_webhook(form_id, url, metadata = false)
+    put("forms/#{form_id}/webhooks", :body => {'url' => url, 'metadata' => metadata})
   end
 
   def delete_webhook(form_id, webhook_hash)
@@ -241,8 +241,8 @@ class WuParty
       @details[id]
     end
 
-    def add_webhook(url)
-      @party.add_webhook(@details["Hash"], url)
+    def add_webhook(url, metadata = false)
+      @party.add_webhook(@details["Hash"], url, metadata)
     end
 
     def delete_webhook(webhook_id)
