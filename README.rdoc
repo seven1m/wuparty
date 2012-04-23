@@ -24,6 +24,8 @@ Make sure you have latest version installed (1.0.0 or higher).
 
 == Usage
 
+=== Setup
+
     require 'wuparty'
 
     ACCOUNT = 'accountname'
@@ -32,14 +34,24 @@ Make sure you have latest version installed (1.0.0 or higher).
 
     wufoo = WuParty.new(ACCOUNT, API_KEY)
 
-    wufoo.forms # list all accessible forms and details
-    form = wufoo.form(FORM_ID) # or details for a specific form
+=== Login
 
-    # query all entries
+    result = WuParty.login(myIntegrationKey, users_email, users_password)
+    api_key = result['LoginResult']['ApiKey']
+
+=== Get Form Info
+
+    wufoo.forms
+    form = wufoo.form(FORM_ID)
+
+=== Get Entries
+
     form.entries
 
     # ...or filter entries (see http://wufoo.com/docs/api/v3/entries/get/#filter)
     form.entries([['Field1', 'Is_equal_to', 'Tim']])
+
+=== Submit
 
     # To submit, use field numbers shown on the 'API Information' page in Wufoo
     result = form.submit({
@@ -50,7 +62,7 @@ Make sure you have latest version installed (1.0.0 or higher).
       puts result['ErrorText']
     end
 
-    # Add a webhook to your Wufoo form.
+=== Web Hooks
 
     # Any submission to this form will now post to the given url.
     result = form.add_webhook('http://www.postbin.org/zh9iy1')
@@ -67,12 +79,6 @@ Make sure you have latest version installed (1.0.0 or higher).
     result = wufoo.add_webhook(FORM_ID, 'http://www.postbin.org/zh9iy1', true)
 
     wufoo.delete_webhook(FORM_ID, result["WebHookPutResult"]["Hash"])
-
-    # You can use the Login API (http://www.wufoo.com/docs/api/v3/login/), like so:
-    result = WuParty.login(myIntegrationKey, users_email, users_password)
-
-    # or
-    result = WuParty.login(myIntegrationKey, users_email, users_password, users_subdomain)
 
 == Feedback
 
