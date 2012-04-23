@@ -76,16 +76,16 @@
             <h2>Methods</h2>
             <h3>public instance</h3>
             <ol>
-              <li><a href="#M000007">[]</a></li>
-              <li><a href="#M000008">fields</a></li>
-              <li><a href="#M000009">widgets</a></li>
+              <li><a href="#M000018">[]</a></li>
+              <li><a href="#M000019">fields</a></li>
+              <li><a href="#M000020">widgets</a></li>
             </ol>
           </div>
           <div id='section'>
             <div id='methods'>
               <h2>Public instance methods</h2>
-              <div class='method public-instance' id='method-M000007'>
-                <a name='M000007'></a>
+              <div class='method public-instance' id='method-M000018'>
+                <a name='M000018'></a>
                 <div class='synopsis'>
                   <span class='name'>[]</span>
                   <span class='arguments'>(id)</span>
@@ -96,14 +96,14 @@
                   </p>
                 </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000007-source'); return false">
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000018-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000007-source'><span class="ruby-comment cmt"># File lib/wuparty.rb, line 313</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-operator">[]</span>(<span class="ruby-identifier">id</span>)&#x000A;      <span class="ruby-ivar">@details</span> <span class="ruby-operator">||=</span> <span class="ruby-ivar">@party</span>.<span class="ruby-identifier">report</span>(<span class="ruby-ivar">@id</span>)&#x000A;      <span class="ruby-ivar">@details</span>[<span class="ruby-identifier">id</span>]&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000018-source'><span class="ruby-comment cmt"># File lib/wuparty.rb, line 344</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-operator">[]</span>(<span class="ruby-identifier">id</span>)&#x000A;      <span class="ruby-ivar">@details</span> <span class="ruby-operator">||=</span> <span class="ruby-ivar">@party</span>.<span class="ruby-identifier">report</span>(<span class="ruby-ivar">@id</span>)&#x000A;      <span class="ruby-ivar">@details</span>[<span class="ruby-identifier">id</span>]&#x000A;    <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
-              <div class='method public-instance' id='method-M000008'>
-                <a name='M000008'></a>
+              <div class='method public-instance' id='method-M000019'>
+                <a name='M000019'></a>
                 <div class='synopsis'>
                   <span class='name'>fields</span>
                   <span class='arguments'>()</span>
@@ -114,14 +114,14 @@
                   </p>
                 </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000008-source'); return false">
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000019-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000008-source'><span class="ruby-comment cmt"># File lib/wuparty.rb, line 319</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">fields</span>&#x000A;      <span class="ruby-ivar">@party</span>.<span class="ruby-identifier">get</span>(<span class="ruby-node">&quot;reports/#{@id}/fields&quot;</span>)[<span class="ruby-value str">'Fields'</span>]&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000019-source'><span class="ruby-comment cmt"># File lib/wuparty.rb, line 350</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">fields</span>&#x000A;      <span class="ruby-ivar">@party</span>.<span class="ruby-identifier">get</span>(<span class="ruby-node">&quot;reports/#{@id}/fields&quot;</span>)[<span class="ruby-value str">'Fields'</span>]&#x000A;    <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
-              <div class='method public-instance' id='method-M000009'>
-                <a name='M000009'></a>
+              <div class='method public-instance' id='method-M000020'>
+                <a name='M000020'></a>
                 <div class='synopsis'>
                   <span class='name'>widgets</span>
                   <span class='arguments'>()</span>
@@ -132,10 +132,10 @@
                   </p>
                 </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000009-source'); return false">
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000020-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000009-source'><span class="ruby-comment cmt"># File lib/wuparty.rb, line 324</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">widgets</span>&#x000A;      <span class="ruby-ivar">@party</span>.<span class="ruby-identifier">get</span>(<span class="ruby-node">&quot;reports/#{@id}/widgets&quot;</span>)[<span class="ruby-value str">'Widgets'</span>]&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000020-source'><span class="ruby-comment cmt"># File lib/wuparty.rb, line 355</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">widgets</span>&#x000A;      <span class="ruby-ivar">@party</span>.<span class="ruby-identifier">get</span>(<span class="ruby-node">&quot;reports/#{@id}/widgets&quot;</span>)[<span class="ruby-value str">'Widgets'</span>]&#x000A;    <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
             </div>

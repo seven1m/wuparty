@@ -4331,22 +4331,27 @@
         
         Element.addMethods();
         var search_index = [
-          { method: '[]', module: 'wuparty::user', html: '<a href="classes/WuParty/User.html#M000010"><span class="method_name">[]</span> <span class="module_name">(WuParty::User)</span></a>' },
-          { method: '[]', module: 'wuparty::report', html: '<a href="classes/WuParty/Report.html#M000007"><span class="method_name">[]</span> <span class="module_name">(WuParty::Report)</span></a>' },
-          { method: '[]', module: 'wuparty::form', html: '<a href="classes/WuParty/Form.html#M000012"><span class="method_name">[]</span> <span class="module_name">(WuParty::Form)</span></a>' },
-          { method: 'comments', module: 'wuparty::form', html: '<a href="classes/WuParty/Form.html#M000016"><span class="method_name">comments</span> <span class="module_name">(WuParty::Form)</span></a>' },
-          { method: 'entries', module: 'wuparty::form', html: '<a href="classes/WuParty/Form.html#M000014"><span class="method_name">entries</span> <span class="module_name">(WuParty::Form)</span></a>' },
-          { method: 'fields', module: 'wuparty::form', html: '<a href="classes/WuParty/Form.html#M000011"><span class="method_name">fields</span> <span class="module_name">(WuParty::Form)</span></a>' },
-          { method: 'fields', module: 'wuparty::report', html: '<a href="classes/WuParty/Report.html#M000008"><span class="method_name">fields</span> <span class="module_name">(WuParty::Report)</span></a>' },
-          { method: 'flattened_fields', module: 'wuparty::form', html: '<a href="classes/WuParty/Form.html#M000013"><span class="method_name">flattened_fields</span> <span class="module_name">(WuParty::Form)</span></a>' },
-          { method: 'form', module: 'wuparty', html: '<a href="classes/WuParty.html#M000005"><span class="method_name">form</span> <span class="module_name">(WuParty)</span></a>' },
-          { method: 'forms', module: 'wuparty', html: '<a href="classes/WuParty.html#M000002"><span class="method_name">forms</span> <span class="module_name">(WuParty)</span></a>' },
-          { method: 'new', module: 'wuparty', html: '<a href="classes/WuParty.html#M000001"><span class="method_name">new</span> <span class="module_name">(WuParty)</span></a>' },
-          { method: 'report', module: 'wuparty', html: '<a href="classes/WuParty.html#M000006"><span class="method_name">report</span> <span class="module_name">(WuParty)</span></a>' },
-          { method: 'reports', module: 'wuparty', html: '<a href="classes/WuParty.html#M000003"><span class="method_name">reports</span> <span class="module_name">(WuParty)</span></a>' },
-          { method: 'submit', module: 'wuparty::form', html: '<a href="classes/WuParty/Form.html#M000015"><span class="method_name">submit</span> <span class="module_name">(WuParty::Form)</span></a>' },
-          { method: 'users', module: 'wuparty', html: '<a href="classes/WuParty.html#M000004"><span class="method_name">users</span> <span class="module_name">(WuParty)</span></a>' },
-          { method: 'widgets', module: 'wuparty::report', html: '<a href="classes/WuParty/Report.html#M000009"><span class="method_name">widgets</span> <span class="module_name">(WuParty::Report)</span></a>' },
+          { method: '[]', module: 'wuparty::user', html: '<a href="classes/WuParty/User.html#M000021"><span class="method_name">[]</span> <span class="module_name">(WuParty::User)</span></a>' },
+          { method: '[]', module: 'wuparty::report', html: '<a href="classes/WuParty/Report.html#M000018"><span class="method_name">[]</span> <span class="module_name">(WuParty::Report)</span></a>' },
+          { method: '[]', module: 'wuparty::form', html: '<a href="classes/WuParty/Form.html#M000011"><span class="method_name">[]</span> <span class="module_name">(WuParty::Form)</span></a>' },
+          { method: 'add_webhook', module: 'wuparty', html: '<a href="classes/WuParty.html#M000007"><span class="method_name">add_webhook</span> <span class="module_name">(WuParty)</span></a>' },
+          { method: 'add_webhook', module: 'wuparty::form', html: '<a href="classes/WuParty/Form.html#M000012"><span class="method_name">add_webhook</span> <span class="module_name">(WuParty::Form)</span></a>' },
+          { method: 'comments', module: 'wuparty::form', html: '<a href="classes/WuParty/Form.html#M000017"><span class="method_name">comments</span> <span class="module_name">(WuParty::Form)</span></a>' },
+          { method: 'delete_webhook', module: 'wuparty::form', html: '<a href="classes/WuParty/Form.html#M000013"><span class="method_name">delete_webhook</span> <span class="module_name">(WuParty::Form)</span></a>' },
+          { method: 'delete_webhook', module: 'wuparty', html: '<a href="classes/WuParty.html#M000008"><span class="method_name">delete_webhook</span> <span class="module_name">(WuParty)</span></a>' },
+          { method: 'entries', module: 'wuparty::form', html: '<a href="classes/WuParty/Form.html#M000015"><span class="method_name">entries</span> <span class="module_name">(WuParty::Form)</span></a>' },
+          { method: 'fields', module: 'wuparty::form', html: '<a href="classes/WuParty/Form.html#M000010"><span class="method_name">fields</span> <span class="module_name">(WuParty::Form)</span></a>' },
+          { method: 'fields', module: 'wuparty::report', html: '<a href="classes/WuParty/Report.html#M000019"><span class="method_name">fields</span> <span class="module_name">(WuParty::Report)</span></a>' },
+          { method: 'flattened_fields', module: 'wuparty::form', html: '<a href="classes/WuParty/Form.html#M000014"><span class="method_name">flattened_fields</span> <span class="module_name">(WuParty::Form)</span></a>' },
+          { method: 'form', module: 'wuparty', html: '<a href="classes/WuParty.html#M000006"><span class="method_name">form</span> <span class="module_name">(WuParty)</span></a>' },
+          { method: 'forms', module: 'wuparty', html: '<a href="classes/WuParty.html#M000003"><span class="method_name">forms</span> <span class="module_name">(WuParty)</span></a>' },
+          { method: 'login', module: 'wuparty', html: '<a href="classes/WuParty.html#M000001"><span class="method_name">login</span> <span class="module_name">(WuParty)</span></a>' },
+          { method: 'new', module: 'wuparty', html: '<a href="classes/WuParty.html#M000002"><span class="method_name">new</span> <span class="module_name">(WuParty)</span></a>' },
+          { method: 'report', module: 'wuparty', html: '<a href="classes/WuParty.html#M000009"><span class="method_name">report</span> <span class="module_name">(WuParty)</span></a>' },
+          { method: 'reports', module: 'wuparty', html: '<a href="classes/WuParty.html#M000004"><span class="method_name">reports</span> <span class="module_name">(WuParty)</span></a>' },
+          { method: 'submit', module: 'wuparty::form', html: '<a href="classes/WuParty/Form.html#M000016"><span class="method_name">submit</span> <span class="module_name">(WuParty::Form)</span></a>' },
+          { method: 'users', module: 'wuparty', html: '<a href="classes/WuParty.html#M000005"><span class="method_name">users</span> <span class="module_name">(WuParty)</span></a>' },
+          { method: 'widgets', module: 'wuparty::report', html: '<a href="classes/WuParty/Report.html#M000020"><span class="method_name">widgets</span> <span class="module_name">(WuParty::Report)</span></a>' },
         ]
         $(document).observe('dom:loaded', function() {
         	// Setup search-during-typing.
@@ -4417,22 +4422,27 @@
       </form>
       <ol class='methods' id='search-results' style='display: none'></ol>
       <ol class='methods' id='index-entries'>
-        <li><a href="classes/WuParty/User.html#M000010"><span class="method_name">[]</span> <span class="module_name">(WuParty::User)</span></a></li>
-        <li><a href="classes/WuParty/Report.html#M000007"><span class="method_name">[]</span> <span class="module_name">(WuParty::Report)</span></a></li>
-        <li><a href="classes/WuParty/Form.html#M000012"><span class="method_name">[]</span> <span class="module_name">(WuParty::Form)</span></a></li>
-        <li><a href="classes/WuParty/Form.html#M000016"><span class="method_name">comments</span> <span class="module_name">(WuParty::Form)</span></a></li>
-        <li><a href="classes/WuParty/Form.html#M000014"><span class="method_name">entries</span> <span class="module_name">(WuParty::Form)</span></a></li>
-        <li><a href="classes/WuParty/Form.html#M000011"><span class="method_name">fields</span> <span class="module_name">(WuParty::Form)</span></a></li>
-        <li><a href="classes/WuParty/Report.html#M000008"><span class="method_name">fields</span> <span class="module_name">(WuParty::Report)</span></a></li>
-        <li><a href="classes/WuParty/Form.html#M000013"><span class="method_name">flattened_fields</span> <span class="module_name">(WuParty::Form)</span></a></li>
-        <li><a href="classes/WuParty.html#M000005"><span class="method_name">form</span> <span class="module_name">(WuParty)</span></a></li>
-        <li><a href="classes/WuParty.html#M000002"><span class="method_name">forms</span> <span class="module_name">(WuParty)</span></a></li>
-        <li><a href="classes/WuParty.html#M000001"><span class="method_name">new</span> <span class="module_name">(WuParty)</span></a></li>
-        <li><a href="classes/WuParty.html#M000006"><span class="method_name">report</span> <span class="module_name">(WuParty)</span></a></li>
-        <li><a href="classes/WuParty.html#M000003"><span class="method_name">reports</span> <span class="module_name">(WuParty)</span></a></li>
-        <li><a href="classes/WuParty/Form.html#M000015"><span class="method_name">submit</span> <span class="module_name">(WuParty::Form)</span></a></li>
-        <li><a href="classes/WuParty.html#M000004"><span class="method_name">users</span> <span class="module_name">(WuParty)</span></a></li>
-        <li><a href="classes/WuParty/Report.html#M000009"><span class="method_name">widgets</span> <span class="module_name">(WuParty::Report)</span></a></li>
+        <li><a href="classes/WuParty/User.html#M000021"><span class="method_name">[]</span> <span class="module_name">(WuParty::User)</span></a></li>
+        <li><a href="classes/WuParty/Report.html#M000018"><span class="method_name">[]</span> <span class="module_name">(WuParty::Report)</span></a></li>
+        <li><a href="classes/WuParty/Form.html#M000011"><span class="method_name">[]</span> <span class="module_name">(WuParty::Form)</span></a></li>
+        <li><a href="classes/WuParty.html#M000007"><span class="method_name">add_webhook</span> <span class="module_name">(WuParty)</span></a></li>
+        <li><a href="classes/WuParty/Form.html#M000012"><span class="method_name">add_webhook</span> <span class="module_name">(WuParty::Form)</span></a></li>
+        <li><a href="classes/WuParty/Form.html#M000017"><span class="method_name">comments</span> <span class="module_name">(WuParty::Form)</span></a></li>
+        <li><a href="classes/WuParty/Form.html#M000013"><span class="method_name">delete_webhook</span> <span class="module_name">(WuParty::Form)</span></a></li>
+        <li><a href="classes/WuParty.html#M000008"><span class="method_name">delete_webhook</span> <span class="module_name">(WuParty)</span></a></li>
+        <li><a href="classes/WuParty/Form.html#M000015"><span class="method_name">entries</span> <span class="module_name">(WuParty::Form)</span></a></li>
+        <li><a href="classes/WuParty/Form.html#M000010"><span class="method_name">fields</span> <span class="module_name">(WuParty::Form)</span></a></li>
+        <li><a href="classes/WuParty/Report.html#M000019"><span class="method_name">fields</span> <span class="module_name">(WuParty::Report)</span></a></li>
+        <li><a href="classes/WuParty/Form.html#M000014"><span class="method_name">flattened_fields</span> <span class="module_name">(WuParty::Form)</span></a></li>
+        <li><a href="classes/WuParty.html#M000006"><span class="method_name">form</span> <span class="module_name">(WuParty)</span></a></li>
+        <li><a href="classes/WuParty.html#M000003"><span class="method_name">forms</span> <span class="module_name">(WuParty)</span></a></li>
+        <li><a href="classes/WuParty.html#M000001"><span class="method_name">login</span> <span class="module_name">(WuParty)</span></a></li>
+        <li><a href="classes/WuParty.html#M000002"><span class="method_name">new</span> <span class="module_name">(WuParty)</span></a></li>
+        <li><a href="classes/WuParty.html#M000009"><span class="method_name">report</span> <span class="module_name">(WuParty)</span></a></li>
+        <li><a href="classes/WuParty.html#M000004"><span class="method_name">reports</span> <span class="module_name">(WuParty)</span></a></li>
+        <li><a href="classes/WuParty/Form.html#M000016"><span class="method_name">submit</span> <span class="module_name">(WuParty::Form)</span></a></li>
+        <li><a href="classes/WuParty.html#M000005"><span class="method_name">users</span> <span class="module_name">(WuParty)</span></a></li>
+        <li><a href="classes/WuParty/Report.html#M000020"><span class="method_name">widgets</span> <span class="module_name">(WuParty::Report)</span></a></li>
       </ol>
     </div>
   </body>

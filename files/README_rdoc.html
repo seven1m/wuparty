@@ -32,7 +32,7 @@
         </div>
         <div class='last-update'>
           Last Update:
-          <span class='datetime'>Tue Mar 22 11:36:58 -0500 2011</span>
+          <span class='datetime'>2012-04-22 20:57:44 -0500</span>
         </div>
       </div>
       <div id='content'>
@@ -70,7 +70,18 @@
             <h2>Installation</h2>
             <pre>gem install wuparty</pre>
             <h2>Usage</h2>
-            <pre>require 'wuparty'&#x000A;&#x000A;ACCOUNT = 'accountname'&#x000A;API_KEY = 'AAAA-BBBB-CCCC-DDDD'&#x000A;FORM_ID = 'my-form-id'&#x000A;&#x000A;wufoo = WuParty.new(ACCOUNT, API_KEY)&#x000A;&#x000A;wufoo.forms # list all accessible forms and details&#x000A;form = wufoo.form(FORM_ID) # or details for a specific form&#x000A;&#x000A;# query all entries&#x000A;form.entries&#x000A;&#x000A;# ...or filter entries (see http://wufoo.com/docs/api/v3/entries/get/#filter)&#x000A;form.entries([['Field1', 'Is_equal_to', 'Tim']])&#x000A;&#x000A;# To submit, use field numbers shown on the 'API Information' page in Wufoo&#x000A;result = wufoo.submit(&#x000A;  'Field1' =&gt; 'Tim',&#x000A;  'Field2' =&gt; 'Morgan'&#x000A;})&#x000A;if result['Success'] == 0&#x000A;  puts result['ErrorText']&#x000A;end</pre>
+            <h3>Setup</h3>
+            <pre>require 'wuparty'&#x000A;&#x000A;ACCOUNT = 'accountname'&#x000A;API_KEY = 'AAAA-BBBB-CCCC-DDDD'&#x000A;FORM_ID = 'my-form-id'&#x000A;&#x000A;wufoo = WuParty.new(ACCOUNT, API_KEY)</pre>
+            <h3>Login</h3>
+            <pre>result = WuParty.login(myIntegrationKey, users_email, users_password)&#x000A;api_key = result['LoginResult']['ApiKey']</pre>
+            <h3>Get Form Info</h3>
+            <pre>wufoo.forms&#x000A;form = wufoo.form(FORM_ID)</pre>
+            <h3>Get Entries</h3>
+            <pre>form.entries&#x000A;&#x000A;# ...or filter entries (see http://wufoo.com/docs/api/v3/entries/get/#filter)&#x000A;form.entries([['Field1', 'Is_equal_to', 'Tim']])</pre>
+            <h3>Submit</h3>
+            <pre># To submit, use field numbers shown on the 'API Information' page in Wufoo&#x000A;result = form.submit({&#x000A;  'Field1' =&gt; 'Tim',&#x000A;  'Field2' =&gt; 'Morgan'&#x000A;})&#x000A;if result['Success'] == 0&#x000A;  puts result['ErrorText']&#x000A;end</pre>
+            <h3>Web Hooks</h3>
+            <pre># Any submission to this form will now post to the given url.&#x000A;result = form.add_webhook('http://www.postbin.org/zh9iy1')&#x000A;&#x000A;# Tell the webhook to include metadata in its postback&#x000A;result = form.add_webhook('http://www.postbin.org/zh9iy1', true)&#x000A;&#x000A;result = form.delete_webhook(result[&quot;WebHookPutResult&quot;][&quot;Hash&quot;])&#x000A;&#x000A;# Or, directly through wufoo:&#x000A;result = wufoo.add_webhook(FORM_ID, 'http://www.postbin.org/zh9iy1')&#x000A;&#x000A;# Tell the webhook to include metadata in its postback&#x000A;result = wufoo.add_webhook(FORM_ID, 'http://www.postbin.org/zh9iy1', true)&#x000A;&#x000A;wufoo.delete_webhook(FORM_ID, result[&quot;WebHookPutResult&quot;][&quot;Hash&quot;])</pre>
             <h2>Feedback</h2>
             <p>
             I’d love to hear from you if you have suggestions for improvement, bug
