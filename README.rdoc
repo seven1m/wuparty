@@ -53,12 +53,24 @@ Make sure you have latest version installed (1.0.0 or higher).
     # Add a webhook to your Wufoo form.
     # Any submission to this form will now post to the given url.
     result = form.add_webhook('http://www.postbin.org/zh9iy1')
+    # Tell the webhook to include metadata in its postback
+    result = form.add_webhook('http://www.postbin.org/zh9iy1', true)
+
     result = form.delete_webhook(result["WebHookPutResult"]["Hash"])
 
     # Or, directly through wufoo:
     result = wufoo.add_webhook(FORM_ID, 'http://www.postbin.org/zh9iy1')
+     # Tell the webhook to include metadata in its postback
+     result = wufoo.add_webhook(FORM_ID, 'http://www.postbin.org/zh9iy1', true)
+     
     result = wufoo.delete_webhook(FORM_ID, result["WebHookPutResult"]["Hash"])
     
+    # You can use the Login API (http://www.wufoo.com/docs/api/v3/login/), like so
+    result = WuParty.login(myIntegrationKey, users_email, users_password) 
+
+    # or 
+    result = WuParty.login(myIntegrationKey, users_email, users_password, users_subdomain) 
+
 == Feedback
 
 I’d love to hear from you if you have suggestions for improvement, bug fixes, or whatever.

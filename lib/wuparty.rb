@@ -93,6 +93,19 @@ class WuParty
   ENDPOINT    = 'https://%s.wufoo.com/api/v3'
   API_VERSION = '3.0'
 
+  # uses the Login API to fetch a user's API key
+  def self.login(integration_key, email, password, account = nil)
+    result = self.post("https://wufoo.com/api/v3/login.json", { :body => { :integrationKey => integration_key, :email => email, :password => password, :subdomain => account }})
+    puts result
+    if result.is_a?(String)
+      raise ConnectionError, result
+    elsif result['HTTPCode']
+      raise HTTPError.new(result['HTTPCode'], result['Text'])
+    else
+      result
+    end
+  end
+
   # Create a new WuParty object
   def initialize(account, api_key)
     @account = account
@@ -128,8 +141,8 @@ class WuParty
     end
   end
 
-  def add_webhook(form_id, url)
-    put("forms/#{form_id}/webhooks", :body => {'url' => url})
+  def add_webhook(form_id, url, metadata = false)
+    put("forms/#{form_id}/webhooks", :body => {'url' => url, 'metadata' => metadata})
   end
 
   def delete_webhook(form_id, webhook_hash)
@@ -228,8 +241,8 @@ class WuParty
       @details[id]
     end
 
-    def add_webhook(url)
-      @party.add_webhook(@details["Hash"], url)
+    def add_webhook(url, metadata = false)
+      @party.add_webhook(@details["Hash"], url, metadata)
     end
 
     def delete_webhook(webhook_id)
