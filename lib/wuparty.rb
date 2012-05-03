@@ -151,7 +151,7 @@ class WuParty
   # Returns details about the specified report.
   def report(report_id)
     if r = get("reports/#{report_id}")['Reports']
-      Form.new(r.first['Url'], :party => self, :details => r.first)
+      Report.new(r.first['Url'], :party => self, :details => r.first)
     end
   end
 
