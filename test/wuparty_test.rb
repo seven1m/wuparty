@@ -96,5 +96,14 @@ class WuPartyTest < Test::Unit::TestCase
     assert form.entries([['Field2', 'Is_equal_to', 'Morgan']]).any?
     assert_equal 1, form.entries([['EntryId', 'Is_equal_to', id]]).length
   end
+  
+  def test_add_webhook
+    # test with optional parameters
+    response = @wufoo.add_webhook(@form_id, "http://#{ENV['WUFOO_ACCOUNT']}.com/#{@form_id}", true, "handshakeKey01")
+    assert_match /[a-z0-9]{6}/i, response['WebHookPutResult']['Hash']
+    # test without optional parameters
+    response = @wufoo.add_webhook(@form_id, "http://#{ENV['WUFOO_ACCOUNT']}.com/#{@form_id}-2")
+    assert_match /[a-z0-9]{6}/i, response['WebHookPutResult']['Hash']
+  end
 
 end
