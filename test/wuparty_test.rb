@@ -93,10 +93,10 @@ class WuPartyTest < Test::Unit::TestCase
     form = @wufoo.form(@form_id)
     form.submit('Field1' => 'Tim', 'Field2' => 'Morgan')
     id = form.submit('Field1' => 'Jane', 'Field2' => 'Smith')['EntryId']
-    assert form.entries([['Field2', 'Is_equal_to', 'Morgan']]).any?
-    assert_equal 1, form.entries([['EntryId', 'Is_equal_to', id]]).length
+    assert form.entries(:filters => [['Field2', 'Is_equal_to', 'Morgan']]).any?
+    assert_equal 1, form.entries(:filters => [['EntryId', 'Is_equal_to', id]]).length
   end
-  
+
   def test_add_webhook
     # test with optional parameters
     response = @wufoo.add_webhook(@form_id, "http://#{ENV['WUFOO_ACCOUNT']}.com/#{@form_id}", true, "handshakeKey01")
