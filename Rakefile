@@ -15,3 +15,8 @@ Grancher::Task.new do |g|
   g.message = 'Updated RDoc.'
   g.directory 'doc'
 end
+
+
+task :test do
+  require('./test/wuparty_test')
+end

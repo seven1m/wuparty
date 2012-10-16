@@ -96,7 +96,7 @@ Make the name field required. Then run:
     WUFOO_ACCOUNT=accountname \
     WUFOO_API_KEY=AAAA-BBBB-CCCC-DDDD \
     WUFOO_FORM_ID=test-form \
-    ruby -rrubygems test/wuparty_test.rb
+    rake test
 
 == License
 

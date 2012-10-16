@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../lib/wuparty'
+require './lib/wuparty'
 require 'test/unit'
 
 class WuPartyTest < Test::Unit::TestCase
@@ -55,8 +55,8 @@ class WuPartyTest < Test::Unit::TestCase
   def test_form_fields
     form = @wufoo.form(@form_id)
     field_names = form.fields.map { |f| f['Title'] }
-    assert field_names.include?('Name')
-    assert field_names.include?('Address')
+    assert field_names.include?('Name'), 'Name field not found in #fields'
+    assert field_names.include?('Address'), 'Address field not found in #fields'
   end
 
   def test_form_submit
@@ -86,7 +86,7 @@ class WuPartyTest < Test::Unit::TestCase
   def test_entries
     form = @wufoo.form(@form_id)
     form.submit('Field1' => 'Tim', 'Field2' => 'Morgan')
-    assert form.entries.last['Field1'].any?
+    assert_equal 'Tim', form.entries.last['Field1']
   end
 
   def test_filtering_entries
