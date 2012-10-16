@@ -270,25 +270,40 @@ class WuParty
 
     # Return entries already submitted to the form.
     #
-    # If you need to filter entries, pass an array as the first argument:
-    #   entries([[field_id, operator, value], ...])
-    # e.g.:
-    #   entries([['EntryId', 'Is_after', 12], ['EntryId', 'Is_before', 17]])
-    #   entries([['Field1', 'Is_equal', 'Tim']])
-    # The second arg is the match parameter (AND/OR) and defaults to 'AND', e.g.
-    #   entries([['Field2', 'Is_equal', 'Morgan'], ['Field2', 'Is_equal', 'Smith']], 'OR')
+    # Supports:
+    #   - filtering:
+    #   entries(:filters => [['Field1', 'Is_equal_to', 'Tim']])
+    #   entries(:filters => [['Field1', 'Is_equal_to', 'Tim'], ['Field2', 'Is_equal_to', 'Morgan']], :filter_match => 'OR')
+    #
+    #   - sorting:
+    #   entries(:sort => 'EntryId DESC')
+    #
+    #   - limiting:
+    #   entries(:limit => 5)
+    #
     # See http://wufoo.com/docs/api/v3/entries/get/#filter for details
-    def entries(filters=[], filter_match='AND')
-      if filters.any?
-        options = {'match' => filter_match}
-        filters.each_with_index do |filter, index|
-          options["Filter#{index+1}"] = filter.join(' ')
+    def entries(options={})
+      query = {}
+
+      if options[:filters].any?
+        query['match'] = options[:filter_match] || 'AND'
+        options[:filters].each_with_index do |filter, index|
+          query["Filter#{ index + 1 }"] = filter.join(' ')
         end
-        options = {:query => options}
-      else
-        options = {}
       end
-      @party.get("forms/#{@id}/entries", options)['Entries']
+
+      if options[:limit]
+        query[:pageSize] = options[:limit]
+        query[:pageStart] = 0
+      end
+
+      if options[:sort]
+        field, direction = options[:sort].split(' ')
+        query[:sort] = field
+        query[:sortDirection] = direction || 'ASC'
+      end
+
+      @party.get("forms/#{@id}/entries", :query => query)['Entries']
     end
 
     # Submit form data to the form.
