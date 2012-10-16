@@ -285,7 +285,7 @@ class WuParty
     def entries(options={})
       query = {}
 
-      if options[:filters].any?
+      if options[:filters]
         query['match'] = options[:filter_match] || 'AND'
         options[:filters].each_with_index do |filter, index|
           query["Filter#{ index + 1 }"] = filter.join(' ')
