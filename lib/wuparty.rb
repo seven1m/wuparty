@@ -210,6 +210,7 @@ class WuParty
       @details = options[:details]
     end
 
+    attr_reader :id
     attr_accessor :details
   end
 
