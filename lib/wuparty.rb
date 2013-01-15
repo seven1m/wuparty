@@ -181,6 +181,11 @@ class WuParty
       options.merge!(:basic_auth => {:username => @api_key})
       url = "#{base_url}/#{action}.json"
       result = self.class.send(verb, url, options)
+      begin
+        result.to_s # trigger parse error if possible
+      rescue MultiJson::DecodeError => e
+        raise HTTPError.new(500, e.message)
+      end
       if result.is_a?(String)
         raise ConnectionError, result
       elsif result['HTTPCode']
