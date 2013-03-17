@@ -1,1 +1,1 @@
-rvm gemset use wuparty
+rvm --create gemset use wuparty
