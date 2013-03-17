@@ -327,8 +327,8 @@ class WuParty
         options[:filters].each_with_index do |filter, index|
           query["Filter#{ index + 1 }"] = filter.join(' ')
         end
-      end      
-      @party.get("forms/#{@id}/entries/count", :query => query)
+      end   
+      @party.get("forms/#{@id}/entries/count", :query => query)['EntryCount']
     end
 
 
