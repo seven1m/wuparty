@@ -308,9 +308,29 @@ class WuParty
         query[:sort] = field
         query[:sortDirection] = direction || 'ASC'
       end
-
+      
       @party.get("forms/#{@id}/entries", :query => query)['Entries']
     end
+
+    # Return entries already submitted to the form.
+    #
+    # Supports:
+    # Same as Entries above with filtering.
+    # form.count(:filters => [['Field1', 'Is_equal_to', 'Tim']])
+    #
+    # See http://wufoo.com/docs/api/v3/entries/get/#filter for details
+    def count(options={})
+      query = {}
+
+      if options[:filters]
+        query['match'] = options[:filter_match] || 'AND'
+        options[:filters].each_with_index do |filter, index|
+          query["Filter#{ index + 1 }"] = filter.join(' ')
+        end
+      end   
+      @party.get("forms/#{@id}/entries/count", :query => query)['EntryCount']
+    end
+
 
     # Submit form data to the form.
     # Pass data as a hash, with field ids as the hash keys, e.g.
