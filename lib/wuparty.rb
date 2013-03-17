@@ -309,7 +309,7 @@ class WuParty
         query[:sortDirection] = direction || 'ASC'
       end
 
-      @party.get("forms/#{@id}/entries", :query => query)['Entries']
+        @party.get("forms/#{@id}/entries/count", :query => query)['Entries']
     end
 
     # Submit form data to the form.
