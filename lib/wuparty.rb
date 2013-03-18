@@ -303,6 +303,10 @@ class WuParty
         query[:pageStart] = 0
       end
 
+      if options[:system]
+        query[:system] = true
+      end
+
       if options[:sort]
         field, direction = options[:sort].split(' ')
         query[:sort] = field
@@ -328,6 +332,11 @@ class WuParty
           query["Filter#{ index + 1 }"] = filter.join(' ')
         end
       end   
+
+      if options[:system]
+        query[:system] = true
+      end
+
       @party.get("forms/#{@id}/entries/count", :query => query)['EntryCount']
     end
 
