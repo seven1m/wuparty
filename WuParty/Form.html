@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+<title>class WuParty::Form - WuParty</title>
+
+<link type="text/css" media="screen" href="../rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/darkfish.js"></script>
+
+
+<body id="top" class="class">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="../index.html">Home</a>
+    <a href="../table_of_contents.html#classes">Classes</a>
+    <a href="../table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>lib/wuparty.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    <nav id="parent-class-section" class="section">
+  <h3 class="section-header">Parent</h3>
+  
+  <p class="link">WuParty::Entity
+  
+</nav>
+
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li><a href="#method-i-5B-5D">#[]</a>
+    
+    <li><a href="#method-i-add_webhook">#add_webhook</a>
+    
+    <li><a href="#method-i-comments">#comments</a>
+    
+    <li><a href="#method-i-count">#count</a>
+    
+    <li><a href="#method-i-delete_webhook">#delete_webhook</a>
+    
+    <li><a href="#method-i-entries">#entries</a>
+    
+    <li><a href="#method-i-fields">#fields</a>
+    
+    <li><a href="#method-i-flattened_fields">#flattened_fields</a>
+    
+    <li><a href="#method-i-submit">#submit</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="../README_rdoc.html">README</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="../WuParty.html">WuParty</a>
+  
+    <li><a href="../WuParty/ConnectionError.html">WuParty::ConnectionError</a>
+  
+    <li><a href="../WuParty/Form.html">WuParty::Form</a>
+  
+    <li><a href="../WuParty/HTTPError.html">WuParty::HTTPError</a>
+  
+    <li><a href="../WuParty/Report.html">WuParty::Report</a>
+  
+    <li><a href="../WuParty/User.html">WuParty::User</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="class">class WuParty::Form</h1>
+
+  <div id="description" class="description">
+    
+<p>Wraps an individual Wufoo <a href="Form.html">Form</a>.</p>
+
+<h2 id="label-Instantiation">Instantiation</h2>
+
+<p>There are two ways to instantiate a <a href="Form.html">Form</a> object:</p>
+<ol><li>
+<p>Via the parent <a href="../WuParty.html">WuParty</a> object that represents
+the account.</p>
+</li><li>
+<p>Via the <a href="Form.html">WuParty::Form</a> class directly.</p>
+</li></ol>
+
+<pre class="ruby"><span class="ruby-identifier">wufoo</span> = <span class="ruby-constant">WuParty</span>.<span class="ruby-identifier">new</span>(<span class="ruby-constant">ACCOUNT</span>, <span class="ruby-constant">API_KEY</span>)
+<span class="ruby-identifier">form</span> = <span class="ruby-identifier">wufoo</span>.<span class="ruby-identifier">form</span>(<span class="ruby-constant">FORM_ID</span>)
+<span class="ruby-comment"># or...</span>
+<span class="ruby-identifier">form</span> = <span class="ruby-constant">WuParty</span><span class="ruby-operator">::</span><span class="ruby-constant">Form</span>.<span class="ruby-identifier">new</span>(<span class="ruby-constant">FORM_ID</span>, :<span class="ruby-identifier">account</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">ACCOUNT</span>, :<span class="ruby-identifier">api_key</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">API_KEY</span>)
+</pre>
+
+<p>The first technique makes a call to the Wufoo API to get the form details,
+while the second technique lazily loads the form details, once something is
+accessed via [].</p>
+
+<h2 id="label-Form+Details">Form Details</h2>
+
+<p>Access form details like it is a Hash, e.g.:</p>
+
+<pre>form['Name']
+form['RedirectMessage']</pre>
+
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    <!-- Methods -->
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-5B-5D" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">[]</span><span
+            class="method-args">(id)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Access form details.</p>
+          
+
+          
+          <div class="method-source-code" id="5B-5D-source">
+            <pre><span class="ruby-comment"># File lib/wuparty.rb, line 244</span>
+<span class="ruby-keyword">def</span> <span class="ruby-operator">[]</span>(<span class="ruby-identifier">id</span>)
+  <span class="ruby-ivar">@details</span> <span class="ruby-operator">||=</span> <span class="ruby-ivar">@party</span>.<span class="ruby-identifier">form</span>(<span class="ruby-ivar">@id</span>)
+  <span class="ruby-ivar">@details</span>[<span class="ruby-identifier">id</span>]
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- 5B-5D-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- 5B-5D-method -->
+
+    
+      <div id="method-i-add_webhook" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">add_webhook</span><span
+            class="method-args">(url, metadata = false, handshakeKey = "")</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="add_webhook-source">
+            <pre><span class="ruby-comment"># File lib/wuparty.rb, line 249</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">add_webhook</span>(<span class="ruby-identifier">url</span>, <span class="ruby-identifier">metadata</span> = <span class="ruby-keyword">false</span>, <span class="ruby-identifier">handshakeKey</span> = <span class="ruby-string">&quot;&quot;</span>)
+  <span class="ruby-ivar">@party</span>.<span class="ruby-identifier">add_webhook</span>(<span class="ruby-ivar">@details</span>[<span class="ruby-string">&quot;Hash&quot;</span>], <span class="ruby-identifier">url</span>, <span class="ruby-identifier">metadata</span>, <span class="ruby-identifier">handshakeKey</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- add_webhook-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- add_webhook-method -->
+
+    
+      <div id="method-i-comments" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">comments</span><span
+            class="method-args">(options={})</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Returns comment details for the form. See Wufoo API documentation for
+possible options, e.g. to filter comments for a specific form entry:</p>
+
+<pre class="ruby"><span class="ruby-identifier">form</span>.<span class="ruby-identifier">comments</span>(<span class="ruby-string">'entryId'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">123</span>)
+</pre>
+          
+
+          
+          <div class="method-source-code" id="comments-source">
+            <pre><span class="ruby-comment"># File lib/wuparty.rb, line 363</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">comments</span>(<span class="ruby-identifier">options</span>={})
+  <span class="ruby-identifier">options</span> = {<span class="ruby-value">:query</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">options</span>} <span class="ruby-keyword">if</span> <span class="ruby-identifier">options</span>.<span class="ruby-identifier">any?</span>
+  <span class="ruby-ivar">@party</span>.<span class="ruby-identifier">get</span>(<span class="ruby-node">&quot;forms/#{@id}/comments&quot;</span>, <span class="ruby-identifier">options</span>)[<span class="ruby-string">'Comments'</span>]
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- comments-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- comments-method -->
+
+    
+      <div id="method-i-count" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">count</span><span
+            class="method-args">(options={})</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Return entries already submitted to the form.</p>
+
+<p>Supports: Same as Entries above with filtering. form.count(:filters =&gt;
+[[‘Field1’, ‘Is_equal_to’, ‘Tim’]])</p>
+
+<p>See <a
+href="http://wufoo.com/docs/api/v3/entries/get/#filter">wufoo.com/docs/api/v3/entries/get/#filter</a>
+for details</p>
+          
+
+          
+          <div class="method-source-code" id="count-source">
+            <pre><span class="ruby-comment"># File lib/wuparty.rb, line 322</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">count</span>(<span class="ruby-identifier">options</span>={})
+  <span class="ruby-identifier">query</span> = {}
+
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:filters</span>]
+    <span class="ruby-identifier">query</span>[<span class="ruby-string">'match'</span>] = <span class="ruby-identifier">options</span>[<span class="ruby-value">:filter_match</span>] <span class="ruby-operator">||</span> <span class="ruby-string">'AND'</span>
+    <span class="ruby-identifier">options</span>[<span class="ruby-value">:filters</span>].<span class="ruby-identifier">each_with_index</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">filter</span>, <span class="ruby-identifier">index</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">query</span>[<span class="ruby-node">&quot;Filter#{ index + 1 }&quot;</span>] = <span class="ruby-identifier">filter</span>.<span class="ruby-identifier">join</span>(<span class="ruby-string">' '</span>)
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>   
+  <span class="ruby-ivar">@party</span>.<span class="ruby-identifier">get</span>(<span class="ruby-node">&quot;forms/#{@id}/entries/count&quot;</span>, <span class="ruby-value">:query</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">query</span>)[<span class="ruby-string">'EntryCount'</span>]
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- count-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- count-method -->
+
+    
+      <div id="method-i-delete_webhook" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">delete_webhook</span><span
+            class="method-args">(webhook_id)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="delete_webhook-source">
+            <pre><span class="ruby-comment"># File lib/wuparty.rb, line 253</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">delete_webhook</span>(<span class="ruby-identifier">webhook_id</span>)
+  <span class="ruby-ivar">@party</span>.<span class="ruby-identifier">delete_webhook</span>(<span class="ruby-ivar">@details</span>[<span class="ruby-string">&quot;Hash&quot;</span>], <span class="ruby-identifier">webhook_id</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- delete_webhook-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- delete_webhook-method -->
+
+    
+      <div id="method-i-entries" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">entries</span><span
+            class="method-args">(options={})</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Return entries already submitted to the form.</p>
+
+<p>Supports:</p>
+
+<pre class="ruby"><span class="ruby-operator">-</span> <span class="ruby-identifier">filtering</span><span class="ruby-operator">:</span>
+<span class="ruby-identifier">entries</span>(:<span class="ruby-identifier">filters</span> =<span class="ruby-operator">&gt;</span> [[<span class="ruby-string">'Field1'</span>, <span class="ruby-string">'Is_equal_to'</span>, <span class="ruby-string">'Tim'</span>]])
+<span class="ruby-identifier">entries</span>(:<span class="ruby-identifier">filters</span> =<span class="ruby-operator">&gt;</span> [[<span class="ruby-string">'Field1'</span>, <span class="ruby-string">'Is_equal_to'</span>, <span class="ruby-string">'Tim'</span>], [<span class="ruby-string">'Field2'</span>, <span class="ruby-string">'Is_equal_to'</span>, <span class="ruby-string">'Morgan'</span>]], :<span class="ruby-identifier">filter_match</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'OR'</span>)
+
+<span class="ruby-operator">-</span> <span class="ruby-identifier">sorting</span><span class="ruby-operator">:</span>
+<span class="ruby-identifier">entries</span>(:<span class="ruby-identifier">sort</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'EntryId DESC'</span>)
+
+<span class="ruby-operator">-</span> <span class="ruby-identifier">limiting</span><span class="ruby-operator">:</span>
+<span class="ruby-identifier">entries</span>(:<span class="ruby-identifier">limit</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">5</span>)
+</pre>
+
+<p>See <a
+href="http://wufoo.com/docs/api/v3/entries/get/#filter">wufoo.com/docs/api/v3/entries/get/#filter</a>
+for details</p>
+          
+
+          
+          <div class="method-source-code" id="entries-source">
+            <pre><span class="ruby-comment"># File lib/wuparty.rb, line 291</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">entries</span>(<span class="ruby-identifier">options</span>={})
+  <span class="ruby-identifier">query</span> = {}
+
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:filters</span>]
+    <span class="ruby-identifier">query</span>[<span class="ruby-string">'match'</span>] = <span class="ruby-identifier">options</span>[<span class="ruby-value">:filter_match</span>] <span class="ruby-operator">||</span> <span class="ruby-string">'AND'</span>
+    <span class="ruby-identifier">options</span>[<span class="ruby-value">:filters</span>].<span class="ruby-identifier">each_with_index</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">filter</span>, <span class="ruby-identifier">index</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">query</span>[<span class="ruby-node">&quot;Filter#{ index + 1 }&quot;</span>] = <span class="ruby-identifier">filter</span>.<span class="ruby-identifier">join</span>(<span class="ruby-string">' '</span>)
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:limit</span>]
+    <span class="ruby-identifier">query</span>[<span class="ruby-value">:pageSize</span>] = <span class="ruby-identifier">options</span>[<span class="ruby-value">:limit</span>]
+    <span class="ruby-identifier">query</span>[<span class="ruby-value">:pageStart</span>] = <span class="ruby-value">0</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:sort</span>]
+    <span class="ruby-identifier">field</span>, <span class="ruby-identifier">direction</span> = <span class="ruby-identifier">options</span>[<span class="ruby-value">:sort</span>].<span class="ruby-identifier">split</span>(<span class="ruby-string">' '</span>)
+    <span class="ruby-identifier">query</span>[<span class="ruby-value">:sort</span>] = <span class="ruby-identifier">field</span>
+    <span class="ruby-identifier">query</span>[<span class="ruby-value">:sortDirection</span>] = <span class="ruby-identifier">direction</span> <span class="ruby-operator">||</span> <span class="ruby-string">'ASC'</span>
+  <span class="ruby-keyword">end</span>
+  
+  <span class="ruby-ivar">@party</span>.<span class="ruby-identifier">get</span>(<span class="ruby-node">&quot;forms/#{@id}/entries&quot;</span>, <span class="ruby-value">:query</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">query</span>)[<span class="ruby-string">'Entries'</span>]
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- entries-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- entries-method -->
+
+    
+      <div id="method-i-fields" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">fields</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Returns field details for the form.</p>
+          
+
+          
+          <div class="method-source-code" id="fields-source">
+            <pre><span class="ruby-comment"># File lib/wuparty.rb, line 239</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">fields</span>
+  <span class="ruby-ivar">@party</span>.<span class="ruby-identifier">get</span>(<span class="ruby-node">&quot;forms/#{@id}/fields&quot;</span>)[<span class="ruby-string">'Fields'</span>]
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- fields-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- fields-method -->
+
+    
+      <div id="method-i-flattened_fields" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">flattened_fields</span><span
+            class="method-args">(all=false)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Returns fields and subfields, as a flattened array, e.g.</p>
+
+<pre class="ruby">[{<span class="ruby-string">'ID'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'Field1'</span>, <span class="ruby-string">'Title'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'Name - First'</span>, <span class="ruby-string">'Type'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'shortname'</span>, <span class="ruby-string">'Required'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span> }, <span class="ruby-comment"># (subfield)</span>
+ {<span class="ruby-string">'ID'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'Field2'</span>, <span class="ruby-string">'Title'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'Name - Last'</span>,  <span class="ruby-string">'Type'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'shortname'</span>, <span class="ruby-string">'Required'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span> }, <span class="ruby-comment"># (subfield)</span>
+ {<span class="ruby-string">'ID'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'Field3'</span>, <span class="ruby-string">'Title'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'Birthday'</span>,     <span class="ruby-string">'Type'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'date'</span>,      <span class="ruby-string">'Required'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">flase</span>}] <span class="ruby-comment"># (field)</span>
+</pre>
+
+<p>By default, only fields that can be submitted are returned. Pass
+<strong>true</strong> as the first arg to return all fields.</p>
+          
+
+          
+          <div class="method-source-code" id="flattened_fields-source">
+            <pre><span class="ruby-comment"># File lib/wuparty.rb, line 262</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">flattened_fields</span>(<span class="ruby-identifier">all</span>=<span class="ruby-keyword">false</span>)
+  <span class="ruby-identifier">flattened</span> = []
+  <span class="ruby-identifier">fields</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">field</span><span class="ruby-operator">|</span>
+    <span class="ruby-keyword">next</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">all</span> <span class="ruby-keyword">or</span> <span class="ruby-identifier">field</span>[<span class="ruby-string">'ID'</span>] <span class="ruby-operator">=~</span> <span class="ruby-regexp">/^Field/</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">field</span>[<span class="ruby-string">'SubFields'</span>]
+      <span class="ruby-identifier">field</span>[<span class="ruby-string">'SubFields'</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">sub_field</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">flattened</span> <span class="ruby-operator">&lt;&lt;</span> {<span class="ruby-string">'ID'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">sub_field</span>[<span class="ruby-string">'ID'</span>], <span class="ruby-string">'Title'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">field</span>[<span class="ruby-string">'Title'</span>] <span class="ruby-operator">+</span> <span class="ruby-string">' - '</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">sub_field</span>[<span class="ruby-string">'Label'</span>], <span class="ruby-string">'Type'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">field</span>[<span class="ruby-string">'Type'</span>], <span class="ruby-string">'Required'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">field</span>[<span class="ruby-string">'IsRequired'</span>] <span class="ruby-operator">==</span> <span class="ruby-string">'1'</span>}
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">flattened</span> <span class="ruby-operator">&lt;&lt;</span> {<span class="ruby-string">'ID'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">field</span>[<span class="ruby-string">'ID'</span>], <span class="ruby-string">'Title'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">field</span>[<span class="ruby-string">'Title'</span>], <span class="ruby-string">'Type'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">field</span>[<span class="ruby-string">'Type'</span>], <span class="ruby-string">'Required'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">field</span>[<span class="ruby-string">'IsRequired'</span>] <span class="ruby-operator">==</span> <span class="ruby-string">'1'</span>}
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">flattened</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- flattened_fields-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- flattened_fields-method -->
+
+    
+      <div id="method-i-submit" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">submit</span><span
+            class="method-args">(data)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Submit form data to the form. Pass data as a hash, with field ids as the
+hash keys, e.g.</p>
+
+<pre class="ruby"><span class="ruby-identifier">submit</span>(<span class="ruby-string">'Field1'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'Tim'</span>, <span class="ruby-string">'Field2'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'Morgan'</span>)
+</pre>
+
+<p>Return value is a Hash that includes the following keys:</p>
+<ul><li>
+<p>Status</p>
+</li><li>
+<p>ErrorText</p>
+</li><li>
+<p>FieldErrors</p>
+</li></ul>
+
+<p>You must submit values for required fields (including all sub fields), and
+dates must be formatted as <code>YYYYMMDD</code>.</p>
+          
+
+          
+          <div class="method-source-code" id="submit-source">
+            <pre><span class="ruby-comment"># File lib/wuparty.rb, line 344</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">submit</span>(<span class="ruby-identifier">data</span>)
+  <span class="ruby-identifier">options</span> = {}
+  <span class="ruby-identifier">data</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">key</span>, <span class="ruby-identifier">value</span><span class="ruby-operator">|</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">value</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Hash</span>)
+      <span class="ruby-identifier">type</span> = <span class="ruby-constant">MIME</span><span class="ruby-operator">::</span><span class="ruby-constant">Types</span>.<span class="ruby-identifier">of</span>(<span class="ruby-identifier">value</span>[<span class="ruby-value">:path</span>]).<span class="ruby-identifier">first</span>.<span class="ruby-identifier">content_type</span> <span class="ruby-keyword">rescue</span> <span class="ruby-string">'application/octet-stream'</span>
+      <span class="ruby-identifier">options</span>[<span class="ruby-value">:multipart</span>] <span class="ruby-operator">||=</span> {}
+      <span class="ruby-identifier">options</span>[<span class="ruby-value">:multipart</span>][<span class="ruby-identifier">key</span>] = {<span class="ruby-value">:type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">type</span>, <span class="ruby-value">:path</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">value</span>[<span class="ruby-value">:path</span>]}
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">options</span>[<span class="ruby-value">:body</span>] <span class="ruby-operator">||=</span> {}
+      <span class="ruby-identifier">options</span>[<span class="ruby-value">:body</span>][<span class="ruby-identifier">key</span>] = <span class="ruby-identifier">value</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-ivar">@party</span>.<span class="ruby-identifier">post</span>(<span class="ruby-node">&quot;forms/#{@id}/entries&quot;</span>, <span class="ruby-identifier">options</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- submit-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- submit-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.2.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+
