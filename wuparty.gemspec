@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name         = "wuparty"
-  s.version      = "1.2.4"
+  s.version      = "1.2.5"
   s.author       = "Tim Morgan"
   s.email        = "tim@timmorgan.org"
   s.homepage     = "http://seven1m.github.com/wuparty"
