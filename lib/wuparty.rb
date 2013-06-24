@@ -300,7 +300,10 @@ class WuParty
 
       if options[:limit]
         query[:pageSize] = options[:limit]
-        query[:pageStart] = 0
+      end
+
+      if options[:pageStart]
+        query[:pageStart] = options[:pageStart]
       end
 
       if options[:system]
