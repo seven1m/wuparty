@@ -49,7 +49,7 @@ Make sure you have latest version installed (1.0.0 or higher).
     form.entries
 
     # ...or filter entries (see http://wufoo.com/docs/api/v3/entries/get/#filter)
-    form.entries([['Field1', 'Is_equal_to', 'Tim']])
+    form.entries(filters: [['Field1', 'Is_equal_to', 'Tim']])
 
 === Submit
 
