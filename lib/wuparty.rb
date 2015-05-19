@@ -259,6 +259,7 @@ class WuParty
     #    {'ID' => 'Field2', 'Title' => 'Name - Last',  'Type' => 'shortname', 'Required' => true }, # (subfield)
     #    {'ID' => 'Field3', 'Title' => 'Birthday',     'Type' => 'date',      'Required' => flase}] # (field)
     # By default, only fields that can be submitted are returned. Pass *true* as the first arg to return all fields.
+    # Add ability to return choices for multiple-choice form fields?
     def flattened_fields(all=false)
       flattened = []
       fields.each do |field|
