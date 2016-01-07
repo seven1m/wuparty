@@ -45,7 +45,7 @@ Make sure you have latest version installed (1.0.0 or higher).
     Examples with optional parameters defined.
 
     wufoo = WuParty.new(ACCOUNT, API_KEY, ENDPOINT_DOMAIN)
-    wufoo = WuParty.new(ACCOUNT, API_KEY, ENDPOINT_PREFIX)
+    wufoo = WuParty.new(ACCOUNT, API_KEY, ENDPOINT_DOMAIN, ENDPOINT_PREFIX)
 
 
 
