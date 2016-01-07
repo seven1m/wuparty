@@ -90,9 +90,6 @@ class WuParty
     attr_reader :code
   end
 
-  @endpoint_domain
-  @endpoint_prefix
-
   API_VERSION = '3.0'
 
   # uses the Login API to fetch a user's API key
