@@ -32,7 +32,27 @@ Make sure you have latest version installed (1.0.0 or higher).
     API_KEY = 'AAAA-BBBB-CCCC-DDDD'
     FORM_ID = 'my-form-id'
 
+    ENDPOINT_DOMAIN = 'wufoo.com'
+    ENDPOINT_PREFIX = 'YourPrefix'
+
     wufoo = WuParty.new(ACCOUNT, API_KEY)
+
+    The endpoint_domain and endpoint_prefix are optional parameters.
+    In some cases the endpoint_domain will be something other than wufoo.com for exacmple wufoo.eu
+
+    The endpoint_prefix will be the prefix that was assigned to you by wufoo. In some cases this is different than the account name.
+
+    Examples with optional parameters defined.
+
+    wufoo = WuParty.new(ACCOUNT, API_KEY, ENDPOINT_DOMAIN)
+    wufoo = WuParty.new(ACCOUNT, API_KEY, ENDPOINT_PREFIX)
+
+
+
+
+
+
+
 
 === Login
 
