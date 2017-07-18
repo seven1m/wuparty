@@ -10,5 +10,5 @@ Gem::Specification.new do |s|
   s.has_rdoc     = true
   s.add_dependency("httparty",       ">= 0.6.1")
   s.add_dependency("multipart-post", ">= 1.0.1")
-  s.add_dependency("mime-types",     "~> 1.16" )
+  s.add_dependency("mime-types",     ">= 1.16" )
 end
