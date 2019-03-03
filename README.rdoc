@@ -30,7 +30,6 @@ Make sure you have latest version installed (1.0.0 or higher).
 
     ACCOUNT = 'accountname'
     API_KEY = 'AAAA-BBBB-CCCC-DDDD'
-    FORM_ID = 'my-form-id'
 
     ENDPOINT_DOMAIN = 'wufoo.com'
     ENDPOINT_PREFIX = 'YourPrefix'
@@ -49,7 +48,7 @@ If your Wufoo domain is not "wufoo.com" (e.g. "wufoo.eu") and/or your account pr
 === Get Form Info
 
     wufoo.forms
-    form = wufoo.form(FORM_ID)
+    form = wufoo.form('my-form-id')
 
 === Get Entries
 
@@ -79,6 +78,8 @@ If your Wufoo domain is not "wufoo.com" (e.g. "wufoo.eu") and/or your account pr
 
     result = form.delete_webhook(result["WebHookPutResult"]["Hash"])
 
+    FORM_ID = 'my-form-id'
+
     # Or, directly through wufoo:
     result = wufoo.add_webhook(FORM_ID, 'http://www.postbin.org/zh9iy1')
 
@@ -91,8 +92,6 @@ If your Wufoo domain is not "wufoo.com" (e.g. "wufoo.eu") and/or your account pr
 
 I’d love to hear from you if you have suggestions for improvement, bug fixes, or whatever.
 Email me at mailto:tim@timmorgan.org or fork the project[http://github.com/seven1m/wuparty] and send a pull request.
-
-http://timmorgan.org
 
 == Tests
 
