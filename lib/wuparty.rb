@@ -8,7 +8,7 @@ class WuParty
   include HTTParty
   format :json
 
-  VERSION = '1.2.3'
+  VERSION = '1.2.4'
 
   # Represents a general error connecting to the Wufoo service
   class ConnectionError < RuntimeError; end
@@ -24,7 +24,6 @@ class WuParty
     attr_reader :code
   end
 
-  ENDPOINT    = 'https://%s.wufoo.com/api/v3'
   API_VERSION = '3.0'
 
   # uses the Login API to fetch a user's API key
@@ -40,9 +39,11 @@ class WuParty
   end
 
   # Create a new WuParty object
-  def initialize(account, api_key)
+  def initialize(account, api_key, endpoint_domain = 'wufoo.com', endpoint_prefix = nil )
     @account = account
     @api_key = api_key
+    @endpoint_domain = endpoint_domain
+    @endpoint_prefix = if (endpoint_prefix == nil) then @account else endpoint_prefix end
     @field_numbers = {}
   end
 
@@ -108,7 +109,7 @@ class WuParty
   private
 
     def base_url
-      ENDPOINT % @account
+      'https://' + @endpoint_prefix +  '.' + @endpoint_domain + '/api/v3'
     end
 
     def handle_http_verb(verb, action, options={})
