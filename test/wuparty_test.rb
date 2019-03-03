@@ -59,7 +59,7 @@ class WuPartyTest < Test::Unit::TestCase
   def test_form_fields
     form = @wufoo.form(@form_id)
     field_names = form.fields.map { |f| f['Title'] }
-    assert field_names.include?('Name'), 'Name field not found in #fields'
+    assert field_names.grep(/^Name/).any?, 'Name field not found in #fields'
     assert field_names.include?('Address'), 'Address field not found in #fields'
   end
 
