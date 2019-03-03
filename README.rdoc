@@ -37,22 +37,9 @@ Make sure you have latest version installed (1.0.0 or higher).
 
     wufoo = WuParty.new(ACCOUNT, API_KEY)
 
-    The endpoint_domain and endpoint_prefix are optional parameters.
-    In some cases the endpoint_domain will be something other than wufoo.com for exacmple wufoo.eu
+If your Wufoo domain is not "wufoo.com" (e.g. "wufoo.eu") and/or your account prefix does not match your account name, you can pass those in:
 
-    The endpoint_prefix will be the prefix that was assigned to you by wufoo. In some cases this is different than the account name.
-
-    Examples with optional parameters defined.
-
-    wufoo = WuParty.new(ACCOUNT, API_KEY, ENDPOINT_DOMAIN)
-    wufoo = WuParty.new(ACCOUNT, API_KEY, ENDPOINT_DOMAIN, ENDPOINT_PREFIX)
-
-
-
-
-
-
-
+    wufoo = WuParty.new(ACCOUNT, API_KEY, domain: 'wufoo.eu', account_prefix: 'myaccount')
 
 === Login
 

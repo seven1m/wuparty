@@ -2,14 +2,13 @@ require './lib/wuparty'
 require 'test/unit'
 
 class WuPartyTest < Test::Unit::TestCase
-
   # Must create a form called "Test Form" and pass in its id
   # via the ENV variable WUFOO_FORM_ID.
   # Give the form standard name and address fields.
   # Make the name field required.
 
   def setup
-    if ENV['WUFOO_ACCOUNT'] and ENV['WUFOO_API_KEY'] and ENV['WUFOO_FORM_ID']
+    if ENV['WUFOO_ACCOUNT'] && ENV['WUFOO_API_KEY'] && ENV['WUFOO_FORM_ID']
       @wufoo = WuParty.new(ENV['WUFOO_ACCOUNT'], ENV['WUFOO_API_KEY'])
       @form_id = ENV['WUFOO_FORM_ID']
     else
@@ -29,7 +28,7 @@ class WuPartyTest < Test::Unit::TestCase
   end
 
   def test_get_form_id
-    assert_equal 1, @wufoo.forms.select {|f| f.id == 'test-form'}.length
+    assert_equal 1, @wufoo.forms.select { |f| f.id == 'test-form' }.length
   end
 
   def test_form_by_hash
@@ -38,7 +37,7 @@ class WuPartyTest < Test::Unit::TestCase
   end
 
   def test_form_directly
-    form = WuParty::Form.new(@form_id, :account => ENV['WUFOO_ACCOUNT'], :api_key => ENV['WUFOO_API_KEY'])
+    form = WuParty::Form.new(@form_id, account: ENV['WUFOO_ACCOUNT'], api_key: ENV['WUFOO_API_KEY'])
     assert_equal 'Test Form', form['Name']
   end
 
@@ -65,7 +64,14 @@ class WuPartyTest < Test::Unit::TestCase
 
   def test_form_submit
     form = @wufoo.form(@form_id)
-    result = form.submit('Field1' => 'Tim', 'Field2' => 'Morgan', 'Field3' => '4010 W. New Orleans', 'Field5' => 'Broken Arrow', 'Field6' => 'OK', 'Field7' => '74011')
+    result = form.submit(
+      'Field1' => 'Tim',
+      'Field2' => 'Morgan',
+      'Field3' => '4010 W. New Orleans',
+      'Field5' => 'Broken Arrow',
+      'Field6' => 'OK',
+      'Field7' => '74011'
+    )
     assert_equal 1, result['Success']
     assert result['EntryId']
     assert result['EntryLink']
@@ -84,7 +90,7 @@ class WuPartyTest < Test::Unit::TestCase
     assert_equal 1, result['FieldErrors'].length
     error = result['FieldErrors'].first
     assert_equal 'Field1', error['ID']
-    assert_match /required/i, error['ErrorText']
+    assert_match(/required/i, error['ErrorText'])
   end
 
   def test_entries
@@ -97,17 +103,16 @@ class WuPartyTest < Test::Unit::TestCase
     form = @wufoo.form(@form_id)
     form.submit('Field1' => 'Tim', 'Field2' => 'Morgan')
     id = form.submit('Field1' => 'Jane', 'Field2' => 'Smith')['EntryId']
-    assert form.entries(:filters => [['Field2', 'Is_equal_to', 'Morgan']]).any?
-    assert_equal 1, form.entries(:filters => [['EntryId', 'Is_equal_to', id]]).length
+    assert form.entries(filters: [%w[Field2 Is_equal_to Morgan]]).any?
+    assert_equal 1, form.entries(filters: [['EntryId', 'Is_equal_to', id]]).length
   end
 
   def test_add_webhook
     # test with optional parameters
-    response = @wufoo.add_webhook(@form_id, "http://#{ENV['WUFOO_ACCOUNT']}.com/#{@form_id}", true, "handshakeKey01")
-    assert_match /[a-z0-9]{6}/i, response['WebHookPutResult']['Hash']
+    response = @wufoo.add_webhook(@form_id, "http://#{ENV['WUFOO_ACCOUNT']}.com/#{@form_id}", true, 'handshakeKey01')
+    assert_match(/[a-z0-9]{6}/i, response['WebHookPutResult']['Hash'])
     # test without optional parameters
     response = @wufoo.add_webhook(@form_id, "http://#{ENV['WUFOO_ACCOUNT']}.com/#{@form_id}-2")
-    assert_match /[a-z0-9]{6}/i, response['WebHookPutResult']['Hash']
+    assert_match(/[a-z0-9]{6}/i, response['WebHookPutResult']['Hash'])
   end
-
 end
